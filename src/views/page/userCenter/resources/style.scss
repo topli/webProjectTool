@@ -1,0 +1,49 @@
+.menu-tree {
+  margin: 10px;
+  overflow: auto;
+}
+.menu-tree .custom-tree-container {
+  display:-ms-flexbox;
+  display:flex;
+  font-size: 14px;
+  padding-right: 8px;
+  min-width: 600px;
+}
+.menu-tree .block {
+  -ms-flex:1;
+  flex:1;
+  padding:8px 10px 24px
+}
+.menu-tree .block>p {
+  text-align:center;
+  margin:0;
+  line-height:4
+}
+.menu-tree .block:first-child {
+  border-right:1px solid #eff2f6
+}
+.icons-container {
+  margin: 10px 20px 0;
+  overflow: hidden;
+  .icons-wrapper {
+    margin: 0 auto;
+  }
+  .icon-item {
+    margin: 20px;
+    height: 110px;
+    text-align: center;
+    width: 110px;
+    float: left;
+    font-size: 30px;
+    color: #24292e;
+    cursor: pointer;
+  }
+  span {
+    display: block;
+    font-size: 24px;
+    margin-top: 10px;
+  }
+  .disabled{
+    pointer-events: none;
+  }
+}
