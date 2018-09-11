@@ -10,34 +10,34 @@
 </template>
 
 <script>
-import { generateTitle } from '@/libs/utils/i18n'
+  import {generateTitle} from '@/libs/utils/i18n';
 
-export default {
-  created() {
-    this.getBreadcrumb()
-  },
-  data() {
-    return {
-      levelList: null
-    }
-  },
-  watch: {
-    $route() {
-      this.getBreadcrumb()
-    }
-  },
-  methods: {
-    generateTitle,
-    getBreadcrumb() {
-      let matched = this.$route.matched.filter(item => item.name)
-      const first = matched[0]
-      if (first && first.name !== 'dashboard') {
-        matched = [{ path: '/dashboard', meta: { title: 'dashboard' }}].concat(matched)
+  export default {
+    created () {
+      this.getBreadcrumb();
+    },
+    data () {
+      return {
+        levelList: null
+      };
+    },
+    watch: {
+      $route () {
+        this.getBreadcrumb();
       }
-      this.levelList = matched
+    },
+    methods: {
+      generateTitle,
+      getBreadcrumb () {
+        let matched = this.$route.matched.filter(item=> item.name);
+        const first = matched[ 0 ];
+        if (first && first.name !== 'dashboard') {
+          matched = [{path: '/dashboard', meta: {title: 'dashboard'}}].concat(matched);
+        }
+        this.levelList = matched;
+      }
     }
-  }
-}
+  };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -46,9 +46,11 @@ export default {
     font-size: 14px;
     line-height: 50px;
     margin-left: 10px;
-    .no-redirect {
-      color: #97a8be;
-      cursor: text;
-    }
+
+  .no-redirect {
+    color: #97a8be;
+    cursor: text;
+  }
+
   }
 </style>
