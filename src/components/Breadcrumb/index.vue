@@ -10,29 +10,29 @@
 </template>
 
 <script>
-  import {generateTitle} from '@/libs/utils/i18n';
+  import { generateTitle } from '@/libs/utils/i18n';
 
   export default {
-    created () {
+    created() {
       this.getBreadcrumb();
     },
-    data () {
+    data() {
       return {
         levelList: null
       };
     },
     watch: {
-      $route () {
+      $route() {
         this.getBreadcrumb();
       }
     },
     methods: {
       generateTitle,
-      getBreadcrumb () {
-        let matched = this.$route.matched.filter(item=> item.name);
-        const first = matched[ 0 ];
+      getBreadcrumb() {
+        let matched = this.$route.matched.filter(item => item.name);
+        const first = matched[0];
         if (first && first.name !== 'dashboard') {
-          matched = [{path: '/dashboard', meta: {title: 'dashboard'}}].concat(matched);
+          matched = [{ path: '/dashboard', meta: { title: 'dashboard' }}].concat(matched);
         }
         this.levelList = matched;
       }

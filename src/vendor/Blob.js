@@ -24,7 +24,8 @@
     try {
       new Blob;
       return;
-    } catch (e) {}
+    } catch (e) {
+    }
   }
 
   // Internally we use a BlobBuilder implementation to base Blob off of
@@ -32,7 +33,7 @@
   var BlobBuilder = view.BlobBuilder || view.WebKitBlobBuilder || view.MozBlobBuilder || (function (view) {
     var
       get_class = function (object) {
-        return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
+        return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[ 1 ];
       },
       FakeBlobBuilder = function BlobBuilder() {
         this.data = [];
@@ -47,7 +48,7 @@
       FB_proto = FakeBlob.prototype,
       FileReaderSync = view.FileReaderSync,
       FileException = function (type) {
-        this.code = this[this.name = type];
+        this.code = this[ this.name = type ];
       },
       file_ex_codes = (
         "NOT_FOUND_ERR SECURITY_ERR ABORT_ERR NOT_READABLE_ERR ENCODING_ERR " +
@@ -66,7 +67,7 @@
       Uint8Array = view.Uint8Array;
     FakeBlob.fake = FB_proto.fake = true;
     while (file_ex_code--) {
-      FileException.prototype[file_ex_codes[file_ex_code]] = file_ex_code + 1;
+      FileException.prototype[ file_ex_codes[ file_ex_code ] ] = file_ex_code + 1;
     }
     if (!real_URL.createObjectURL) {
       URL = view.URL = {};
@@ -99,7 +100,7 @@
         real_revoke_object_URL.call(real_URL, object_URL);
       }
     };
-    FBB_proto.append = function (data /*, endings*/ ) {
+    FBB_proto.append = function (data /*, endings*/) {
       var bb = this.data;
       // decode data to a binary string
       if (Uint8Array && (data instanceof ArrayBuffer || data instanceof Uint8Array)) {
@@ -109,7 +110,7 @@
           i = 0,
           buf_len = buf.length;
         for (; i < buf_len; i++) {
-          str += String.fromCharCode(buf[i]);
+          str += String.fromCharCode(buf[ i ]);
         }
         bb.push(str);
       } else if (get_class(data) === "Blob" || get_class(data) === "File") {
@@ -168,7 +169,7 @@
     var builder = new BlobBuilder();
     if (blobParts) {
       for (var i = 0, len = blobParts.length; i < len; i++) {
-        builder.append(blobParts[i]);
+        builder.append(blobParts[ i ]);
       }
     }
     return builder.getBlob(type);

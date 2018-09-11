@@ -26,14 +26,14 @@
 
   export default {
     name: 'page404',
-    data () {
+    data() {
       return {
         img_404,
         img_404_cloud
       };
     },
     computed: {
-      message () {
+      message() {
         return '网管说这个页面你不能进......';
       }
     }

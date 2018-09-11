@@ -1,5 +1,5 @@
-import {loginByUsername, logout, getUserInfo} from '@/api/login';
-import {getToken, setToken, removeToken} from '@/libs/utils/auth';
+import { loginByUsername, logout, getUserInfo } from '@/api/login';
+import { getToken, setToken, removeToken } from '@/libs/utils/auth';
 
 const user = {
   state: {
@@ -18,55 +18,55 @@ const user = {
   },
 
   mutations: {
-    SET_CODE: (state, code)=> {
+    SET_CODE: (state, code) => {
       state.code = code;
     },
-    SET_TOKEN: (state, token)=> {
+    SET_TOKEN: (state, token) => {
       state.token = token;
     },
-    SET_INTRODUCTION: (state, introduction)=> {
+    SET_INTRODUCTION: (state, introduction) => {
       state.introduction = introduction;
     },
-    SET_SETTING: (state, setting)=> {
+    SET_SETTING: (state, setting) => {
       state.setting = setting;
     },
-    SET_STATUS: (state, status)=> {
+    SET_STATUS: (state, status) => {
       state.status = status;
     },
-    SET_NAME: (state, name)=> {
+    SET_NAME: (state, name) => {
       state.name = name;
     },
-    SET_AVATAR: (state, avatar)=> {
+    SET_AVATAR: (state, avatar) => {
       state.avatar = avatar;
     },
-    SET_ROLES: (state, roles)=> {
+    SET_ROLES: (state, roles) => {
       state.roles = roles;
     },
-    SET_BTN_ROLES: (state, btnRoles)=> {
+    SET_BTN_ROLES: (state, btnRoles) => {
       state.btnRoles = btnRoles;
     }
   },
 
   actions: {
     // 用户名登录
-    LoginByUsername ({commit}, userInfo) {
+    LoginByUsername({ commit }, userInfo) {
       const username = userInfo.username.trim();
-      return new Promise((resolve, reject)=> {
-        loginByUsername(username, userInfo.password).then(response=> {
+      return new Promise((resolve, reject) => {
+        loginByUsername(username, userInfo.password).then(response => {
           const data = response.data;
           commit('SET_TOKEN', data.token);
           setToken(response.data.token);
           resolve();
-        }).catch(error=> {
+        }).catch(error => {
           reject(error);
         });
       });
     },
 
     // 获取用户信息
-    GetUserInfo ({commit, state}) {
-      return new Promise((resolve, reject)=> {
-        getUserInfo(state.token).then(response=> {
+    GetUserInfo({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        getUserInfo(state.token).then(response => {
           if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
             reject('error');
           }
@@ -82,7 +82,7 @@ const user = {
           commit('SET_AVATAR', data.avatar);
           commit('SET_INTRODUCTION', data.introduction);
           resolve(response);
-        }).catch(error=> {
+        }).catch(error => {
           reject(error);
         });
       });
@@ -103,22 +103,22 @@ const user = {
     // },
 
     // 登出
-    LogOut ({commit, state}) {
-      return new Promise((resolve, reject)=> {
-        logout(state.token).then(()=> {
+    LogOut({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        logout(state.token).then(() => {
           commit('SET_TOKEN', '');
           commit('SET_ROLES', []);
           removeToken();
           resolve();
-        }).catch(error=> {
+        }).catch(error => {
           reject(error);
         });
       });
     },
 
     // 前端 登出
-    FedLogOut ({commit}) {
-      return new Promise(resolve=> {
+    FedLogOut({ commit }) {
+      return new Promise(resolve => {
         commit('SET_TOKEN', '');
         removeToken();
         resolve();
@@ -126,11 +126,11 @@ const user = {
     },
 
     // 动态修改权限
-    ChangeRoles ({commit}, role) {
-      return new Promise(resolve=> {
+    ChangeRoles({ commit }, role) {
+      return new Promise(resolve => {
         commit('SET_TOKEN', role);
         setToken(role);
-        getUserInfo(role).then(response=> {
+        getUserInfo(role).then(response => {
           const data = response.data;
           commit('SET_ROLES', data.roles);
           commit('SET_NAME', data.name);
@@ -142,7 +142,7 @@ const user = {
     },
 
     // 动态修改按钮权限
-    ChangeBtnRoles ({commit}, btnRole) {
+    ChangeBtnRoles({ commit }, btnRole) {
       commit('SET_BTN_ROLES', btnRole);
     }
   }

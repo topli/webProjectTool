@@ -129,21 +129,21 @@
 </template>
 
 <script>
-  import {fetchList} from './service';
+  import { fetchList } from './service';
   import list from '@/libs/mixins/list';
 
   export default {
     components: {},
     mixins: [list],
-    data () {
+    data() {
       return {};
     },
-    mounted () {
+    mounted() {
     },
     methods: {
-      _getList () {
+      _getList() {
         this.loading = true;
-        fetchList().then(res=> {
+        fetchList().then(res => {
           this.list = res.data.items;
           this.totalElement = res.data.total;
         });

@@ -1,7 +1,7 @@
 <template>
   <!-- IconBtn -->
   <div @click="clickBtn($event)" class="newIconBtn" :style="styles" v-btn-auth="authCode">
-    <el-tooltip  placement="bottom" :content="content" :open-delay="500">
+    <el-tooltip placement="bottom" :content="content" :open-delay="500">
       <svg-icon :icon-class="icon"></svg-icon>
     </el-tooltip>
   </div>
@@ -23,16 +23,16 @@
     },
     computed: {
       styles() {
-        var style = { fontSize: this.size + 'px', color: this.color }
-        return style
+        var style = { fontSize: this.size + 'px', color: this.color };
+        return style;
       }
     },
     methods: {
       clickBtn($event) {
-        this.$emit('click', $event)
+        this.$emit('click', $event);
       }
     }
-  }
+  };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -57,8 +57,8 @@
     padding: 0px 3px;
     font-size: 12px;
     border-radius: 4px;
-    -webkit-transition: color .2s linear,background-color .2s linear,border .2s linear,-webkit-box-shadow .2s linear;
-    transition: color .2s linear,background-color .2s linear,border .2s linear,box-shadow .2s linear,-webkit-box-shadow .2s linear;
+    -webkit-transition: color .2s linear, background-color .2s linear, border .2s linear, -webkit-box-shadow .2s linear;
+    transition: color .2s linear, background-color .2s linear, border .2s linear, box-shadow .2s linear, -webkit-box-shadow .2s linear;
     color: #495060;
   }
 </style>

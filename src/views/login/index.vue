@@ -37,15 +37,15 @@
 </template>
 
 <script>
-  import {isvalidUsername} from '@/libs/utils/validate';
+  import { isvalidUsername } from '@/libs/utils/validate';
   import LangSelect from '@/components/LangSelect';
   import SocialSign from './socialsignin';
 
   export default {
-    components: {LangSelect, SocialSign},
+    components: { LangSelect, SocialSign },
     name: 'login',
-    data () {
-      const validateUsername = (rule, value, callback)=> {
+    data() {
+      const validateUsername = (rule, value, callback) => {
         console.log(rule);
         if (!isvalidUsername(value)) {
           callback(new Error(this.$t('login.userNameError')));
@@ -53,7 +53,7 @@
           callback();
         }
       };
-      const validatePassword = (rule, value, callback)=> {
+      const validatePassword = (rule, value, callback) => {
         if (value.length < 6) {
           callback(new Error(this.$t('login.passwordError')));
         } else {
@@ -66,29 +66,29 @@
           password: '1111111'
         },
         loginRules: {
-          username: [{required: true, trigger: 'blur', validator: validateUsername}],
-          password: [{required: true, trigger: 'blur', validator: validatePassword}]
+          username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+          password: [{ required: true, trigger: 'blur', validator: validatePassword }]
         },
         passwordType: 'password',
         loading: false
       };
     },
     methods: {
-      showPwd () {
+      showPwd() {
         if (this.passwordType === 'password') {
           this.passwordType = '';
         } else {
           this.passwordType = 'password';
         }
       },
-      handleLogin () {
-        this.$refs.loginForm.validate(valid=> {
+      handleLogin() {
+        this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true;
-            this.$store.dispatch('LoginByUsername', this.loginForm).then(()=> {
+            this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
               this.loading = false;
-              this.$router.push({path: '/'});
-            }).catch(()=> {
+              this.$router.push({ path: '/' });
+            }).catch(() => {
               this.loading = false;
             });
           } else {
@@ -98,9 +98,9 @@
         });
       }
     },
-    created () {
+    created() {
     },
-    destroyed () {
+    destroyed() {
     }
   };
 </script>

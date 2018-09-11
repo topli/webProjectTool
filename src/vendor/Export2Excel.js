@@ -1,7 +1,7 @@
 /* eslint-disable */
 require('script-loader!file-saver');
 require('script-loader!@/vendor/Blob');
-import XLSX from 'xlsx'
+import XLSX from 'xlsx';
 
 function generateArray(table) {
   var out = [];
@@ -9,10 +9,10 @@ function generateArray(table) {
   var ranges = [];
   for (var R = 0; R < rows.length; ++R) {
     var outRow = [];
-    var row = rows[R];
+    var row = rows[ R ];
     var columns = row.querySelectorAll('td');
     for (var C = 0; C < columns.length; ++C) {
-      var cell = columns[C];
+      var cell = columns[ C ];
       var colspan = cell.getAttribute('colspan');
       var rowspan = cell.getAttribute('rowspan');
       var cellValue = cell.innerText;
@@ -39,7 +39,8 @@ function generateArray(table) {
             c: outRow.length + colspan - 1
           }
         });
-      };
+      }
+      ;
 
       //Handle Value
       outRow.push(cellValue !== "" ? cellValue : null);
@@ -50,7 +51,7 @@ function generateArray(table) {
     }
     out.push(outRow);
   }
-  return [out, ranges];
+  return [ out, ranges ];
 };
 
 function datenum(v, date1904) {
@@ -72,13 +73,13 @@ function sheet_from_array_of_arrays(data, opts) {
     }
   };
   for (var R = 0; R != data.length; ++R) {
-    for (var C = 0; C != data[R].length; ++C) {
+    for (var C = 0; C != data[ R ].length; ++C) {
       if (range.s.r > R) range.s.r = R;
       if (range.s.c > C) range.s.c = C;
       if (range.e.r < R) range.e.r = R;
       if (range.e.c < C) range.e.c = C;
       var cell = {
-        v: data[R][C]
+        v: data[ R ][ C ]
       };
       if (cell.v == null) continue;
       var cell_ref = XLSX.utils.encode_cell({
@@ -90,14 +91,14 @@ function sheet_from_array_of_arrays(data, opts) {
       else if (typeof cell.v === 'boolean') cell.t = 'b';
       else if (cell.v instanceof Date) {
         cell.t = 'n';
-        cell.z = XLSX.SSF._table[14];
+        cell.z = XLSX.SSF._table[ 14 ];
         cell.v = datenum(cell.v);
       } else cell.t = 's';
 
-      ws[cell_ref] = cell;
+      ws[ cell_ref ] = cell;
     }
   }
-  if (range.s.c < 10000000) ws['!ref'] = XLSX.utils.encode_range(range);
+  if (range.s.c < 10000000) ws[ '!ref' ] = XLSX.utils.encode_range(range);
   return ws;
 }
 
@@ -110,17 +111,17 @@ function Workbook() {
 function s2ab(s) {
   var buf = new ArrayBuffer(s.length);
   var view = new Uint8Array(buf);
-  for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+  for (var i = 0; i != s.length; ++i) view[ i ] = s.charCodeAt(i) & 0xFF;
   return buf;
 }
 
 export function export_table_to_excel(id) {
   var theTable = document.getElementById(id);
   var oo = generateArray(theTable);
-  var ranges = oo[1];
+  var ranges = oo[ 1 ];
 
   /* original data */
-  var data = oo[0];
+  var data = oo[ 0 ];
   var ws_name = "SheetJS";
 
   var wb = new Workbook(),
@@ -128,11 +129,11 @@ export function export_table_to_excel(id) {
 
   /* add ranges to worksheet */
   // ws['!cols'] = ['apple', 'banan'];
-  ws['!merges'] = ranges;
+  ws[ '!merges' ] = ranges;
 
   /* add worksheet to workbook */
   wb.SheetNames.push(ws_name);
-  wb.Sheets[ws_name] = ws;
+  wb.Sheets[ ws_name ] = ws;
 
   var wbout = XLSX.write(wb, {
     bookType: 'xlsx',
@@ -140,20 +141,20 @@ export function export_table_to_excel(id) {
     type: 'binary'
   });
 
-  saveAs(new Blob([s2ab(wbout)], {
+  saveAs(new Blob([ s2ab(wbout) ], {
     type: "application/octet-stream"
-  }), "test.xlsx")
+  }), "test.xlsx");
 }
 
 export function export_json_to_excel({
-  header,
-  data,
-  filename,
-  autoWidth = true
-} = {}) {
+                                       header,
+                                       data,
+                                       filename,
+                                       autoWidth = true
+                                     } = {}) {
   /* original data */
-  filename = filename || 'excel-list'
-  data = [...data]
+  filename = filename || 'excel-list';
+  data = [ ...data ];
   data.unshift(header);
   var ws_name = "SheetJS";
   var wb = new Workbook(),
@@ -178,29 +179,29 @@ export function export_json_to_excel({
           'wch': val.toString().length
         };
       }
-    }))
+    }));
     /*以第一行为初始值*/
-    let result = colWidth[0];
+    let result = colWidth[ 0 ];
     for (let i = 1; i < colWidth.length; i++) {
-      for (let j = 0; j < colWidth[i].length; j++) {
-        if (result[j]['wch'] < colWidth[i][j]['wch']) {
-          result[j]['wch'] = colWidth[i][j]['wch'];
+      for (let j = 0; j < colWidth[ i ].length; j++) {
+        if (result[ j ][ 'wch' ] < colWidth[ i ][ j ][ 'wch' ]) {
+          result[ j ][ 'wch' ] = colWidth[ i ][ j ][ 'wch' ];
         }
       }
     }
-    ws['!cols'] = result;
+    ws[ '!cols' ] = result;
   }
 
   /* add worksheet to workbook */
   wb.SheetNames.push(ws_name);
-  wb.Sheets[ws_name] = ws;
+  wb.Sheets[ ws_name ] = ws;
 
   var wbout = XLSX.write(wb, {
     bookType: 'xlsx',
     bookSST: false,
     type: 'binary'
   });
-  saveAs(new Blob([s2ab(wbout)], {
+  saveAs(new Blob([ s2ab(wbout) ], {
     type: "application/octet-stream"
   }), filename + ".xlsx");
 }

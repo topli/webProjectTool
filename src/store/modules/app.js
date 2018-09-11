@@ -10,7 +10,7 @@ const app = {
     language: Cookies.get('language') || 'en'
   },
   mutations: {
-    TOGGLE_SIDEBAR: state=> {
+    TOGGLE_SIDEBAR: state => {
       if (state.sidebar.opened) {
         Cookies.set('sidebarStatus', 1);
       } else {
@@ -19,30 +19,30 @@ const app = {
       state.sidebar.opened = !state.sidebar.opened;
       state.sidebar.withoutAnimation = false;
     },
-    CLOSE_SIDEBAR: (state, withoutAnimation)=> {
+    CLOSE_SIDEBAR: (state, withoutAnimation) => {
       Cookies.set('sidebarStatus', 1);
       state.sidebar.opened = false;
       state.sidebar.withoutAnimation = withoutAnimation;
     },
-    TOGGLE_DEVICE: (state, device)=> {
+    TOGGLE_DEVICE: (state, device) => {
       state.device = device;
     },
-    SET_LANGUAGE: (state, language)=> {
+    SET_LANGUAGE: (state, language) => {
       state.language = language;
       Cookies.set('language', language);
     }
   },
   actions: {
-    toggleSideBar ({commit}) {
+    toggleSideBar({ commit }) {
       commit('TOGGLE_SIDEBAR');
     },
-    closeSideBar ({commit}, {withoutAnimation}) {
+    closeSideBar({ commit }, { withoutAnimation }) {
       commit('CLOSE_SIDEBAR', withoutAnimation);
     },
-    toggleDevice ({commit}, device) {
+    toggleDevice({ commit }, device) {
       commit('TOGGLE_DEVICE', device);
     },
-    setLanguage ({commit}, language) {
+    setLanguage({ commit }, language) {
       commit('SET_LANGUAGE', language);
     }
   }

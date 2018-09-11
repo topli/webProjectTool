@@ -153,4 +153,4 @@ export default {
   resources: {
     title: 'resources-list'
   }
-}
+};

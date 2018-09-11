@@ -6,7 +6,8 @@
     <h3>{{$t('errorLog.tips')}}</h3>
     <code>
       {{$t('errorLog.description')}}
-      <a target="_blank" class="link-type" href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/error.html">
+      <a target="_blank" class="link-type"
+         href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/error.html">
         {{$t('errorLog.documentation')}}
       </a>
     </code>
@@ -17,13 +18,13 @@
 </template>
 
 <script>
-import errorA from './errorTestA'
-import errorB from './errorTestB'
+  import errorA from './errorTestA';
+  import errorB from './errorTestB';
 
-export default {
-  name: 'errorLog',
-  components: { errorA, errorB }
-}
+  export default {
+    name: 'errorLog',
+    components: { errorA, errorB }
+  };
 </script>
 
 <style scoped>

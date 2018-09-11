@@ -1,9 +1,9 @@
 /**
  *  描述：混合类
  */
-import { mapActions, mapGetters } from 'vuex'
-import { debounce } from '@/libs/utils'
-import 'static/styles/list.scss' // 列表样式
+import { mapActions, mapGetters } from 'vuex';
+import { debounce } from '@/libs/utils';
+import 'static/styles/list.scss'; // 列表样式
 
 export default {
   data() {
@@ -20,36 +20,37 @@ export default {
       multipleSelection: [],
       totalElement: 0,
       openSearch: true
-    }
+    };
   },
   computed: {
     ...mapGetters(['roles']),
     toggleFromIcon() {
-      return this.openSearch ? 'el-icon-arrow-down' : 'el-icon-arrow-up'
+      return this.openSearch ? 'el-icon-arrow-down' : 'el-icon-arrow-up';
     }
   },
   created() {
-    this._getList()
+    this._getList();
   },
-  mounted() {},
+  mounted() {
+  },
   methods: {
     ...mapActions([]),
     debounce,
     openSearchFun() {
-      this.openSearch = !this.openSearch
+      this.openSearch = !this.openSearch;
     },
     onSearch() {
-      this._getList()
+      this._getList();
     },
     handleSizeChange(val) {
-      console.log('handleSizeChange')
-      this.searchData.pageSize = val
+      console.log('handleSizeChange');
+      this.searchData.pageSize = val;
     },
     handleCurrentChange(val) {
-      console.log('handleCurrentChange')
-      this.searchData.pageNo = val
-      this._getList()
+      console.log('handleCurrentChange');
+      this.searchData.pageNo = val;
+      this._getList();
     }
   },
   watch: {}
-}
+};

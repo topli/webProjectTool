@@ -25,11 +25,11 @@ import './components'; // global components
 
 Vue.use(Element, {
   size: 'medium', // set element-ui default size
-  i18n: (key, value)=> i18n.t(key, value)
+  i18n: (key, value) => i18n.t(key, value)
 });
 
 // register global utility filters.
-Object.keys(filters).forEach(key=> {
+Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[ key ]);
 });
 
@@ -42,5 +42,5 @@ new Vue({
   router,
   store,
   i18n,
-  render: h=> h(App)
+  render: h => h(App)
 });

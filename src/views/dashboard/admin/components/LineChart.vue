@@ -6,7 +6,7 @@
   import echarts from 'echarts';
 
   require('echarts/theme/macarons'); // echarts theme
-  import {debounce} from '@/libs/utils';
+  import { debounce } from '@/libs/utils';
 
   export default {
     props: {
@@ -30,15 +30,15 @@
         type: Object
       }
     },
-    data () {
+    data() {
       return {
         chart: null
       };
     },
-    mounted () {
+    mounted() {
       this.initChart();
       if (this.autoResize) {
-        this.__resizeHanlder = debounce(()=> {
+        this.__resizeHanlder = debounce(() => {
           if (this.chart) {
             this.chart.resize();
           }
@@ -47,10 +47,10 @@
       }
 
       // 监听侧边栏的变化
-      const sidebarElm = document.getElementsByClassName('sidebar-container')[ 0 ];
+      const sidebarElm = document.getElementsByClassName('sidebar-container')[0];
       sidebarElm.addEventListener('transitionend', this.__resizeHanlder);
     },
-    beforeDestroy () {
+    beforeDestroy() {
       if (!this.chart) {
         return;
       }
@@ -58,7 +58,7 @@
         window.removeEventListener('resize', this.__resizeHanlder);
       }
 
-      const sidebarElm = document.getElementsByClassName('sidebar-container')[ 0 ];
+      const sidebarElm = document.getElementsByClassName('sidebar-container')[0];
       sidebarElm.removeEventListener('transitionend', this.__resizeHanlder);
 
       this.chart.dispose();
@@ -67,13 +67,13 @@
     watch: {
       chartData: {
         deep: true,
-        handler (val) {
+        handler(val) {
           this.setOptions(val);
         }
       }
     },
     methods: {
-      setOptions ({expectedData, actualData} = {}) {
+      setOptions({ expectedData, actualData } = {}) {
         this.chart.setOption({
           xAxis: {
             data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -142,7 +142,7 @@
           }]
         });
       },
-      initChart () {
+      initChart() {
         this.chart = echarts.init(this.$el, 'macarons');
         this.setOptions(this.chartData);
       }

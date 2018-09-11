@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import {Navbar, Sidebar, AppMain, TagsView} from './components';
+  import { Navbar, Sidebar, AppMain, TagsView } from './components';
   import ResizeMixin from './mixin/ResizeHandler';
 
   export default {
@@ -24,13 +24,13 @@
     },
     mixins: [ResizeMixin],
     computed: {
-      sidebar () {
+      sidebar() {
         return this.$store.state.app.sidebar;
       },
-      device () {
+      device() {
         return this.$store.state.app.device;
       },
-      classObj () {
+      classObj() {
         return {
           hideSidebar: !this.sidebar.opened,
           openSidebar: this.sidebar.opened,
@@ -40,8 +40,8 @@
       }
     },
     methods: {
-      handleClickOutside () {
-        this.$store.dispatch('closeSideBar', {withoutAnimation: false});
+      handleClickOutside() {
+        this.$store.dispatch('closeSideBar', { withoutAnimation: false });
       }
     }
   };
@@ -56,8 +56,7 @@
     height: 100%;
     width: 100%;
 
-  &
-  .mobile.openSidebar {
+  &.mobile.openSidebar {
     position: fixed;
     top: 0;
   }

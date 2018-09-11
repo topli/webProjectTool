@@ -15,14 +15,14 @@
   export default {
     name: 'social-signin',
     methods: {
-      wechatHandleClick (thirdpart) {
+      wechatHandleClick(thirdpart) {
         this.$store.commit('SET_AUTH_TYPE', thirdpart);
         const appid = 'xxxxx';
         const redirect_uri = encodeURIComponent('xxx/redirect?redirect=' + window.location.origin + '/authredirect');
         const url = 'https://open.weixin.qq.com/connect/qrconnect?appid=' + appid + '&redirect_uri=' + redirect_uri + '&response_type=code&scope=snsapi_login#wechat_redirect';
         openWindow(url, thirdpart, 540, 540);
       },
-      tencentHandleClick (thirdpart) {
+      tencentHandleClick(thirdpart) {
         this.$store.commit('SET_AUTH_TYPE', thirdpart);
         const client_id = 'xxxxx';
         const redirect_uri = encodeURIComponent('xxx/redirect?redirect=' + window.location.origin + '/authredirect');

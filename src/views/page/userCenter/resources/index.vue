@@ -35,7 +35,8 @@
             <el-switch v-model="ruleForm.show"></el-switch>
           </el-form-item>
           <el-form-item label="图标" prop="icon">
-            <svg-icon v-if="ruleForm.icon" :icon-class="ruleForm.icon" style="font-size: 28px;margin-top: 5px;"></svg-icon>
+            <svg-icon v-if="ruleForm.icon" :icon-class="ruleForm.icon"
+                      style="font-size: 28px;margin-top: 5px;"></svg-icon>
             <el-button type="text" @click="showDialog = true" style="margin-left: 10px">选择图标</el-button>
           </el-form-item>
           <el-form-item>
@@ -71,10 +72,10 @@
 </template>
 <script>
   import icons from '@/icons/generateIconsView';
-  import {deepClone} from '@/libs/utils';
+  import { deepClone } from '@/libs/utils';
 
   export default {
-    data () {
+    data() {
       const data = [
         {
           id: 9999,
@@ -140,31 +141,31 @@
         },
         rules: {
           name: [
-            {required: true, message: '请输入活动名称', trigger: 'blur'},
-            {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+            { required: true, message: '请输入活动名称', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
           resource: [
-            {required: true, message: '请选择活动资源', trigger: 'change'}
+            { required: true, message: '请选择活动资源', trigger: 'change' }
           ]
         }
       };
     },
-    mounted () {
-      const iconsMap = icons.state.iconsMap.map((i)=> {
-        return i.default.id.split('-')[ 1 ];
+    mounted() {
+      const iconsMap = icons.state.iconsMap.map((i) => {
+        return i.default.id.split('-')[1];
       });
       this.iconsMap = iconsMap;
     },
     methods: {
-      generateIconCode (symbol) {
+      generateIconCode(symbol) {
         return symbol;
       },
-      handleClipboard (text, event) {
+      handleClipboard(text, event) {
         this.ruleForm.icon = text;
         this.handleClose();
       },
-      submitForm (formName) {
-        this.$refs[ formName ].validate((valid)=> {
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!');
           } else {
@@ -173,10 +174,10 @@
           }
         });
       },
-      resetForm (formName) {
-        this.$refs[ formName ].resetFields();
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
       },
-      append (data) {
+      append(data) {
         // todo 右侧显示新增页面
         this.ruleForm = {
           resource: '1',
@@ -185,43 +186,43 @@
           show: true
         };
       },
-      edit (data) {
+      edit(data) {
         // todo 右侧显示修改页面
         this.ruleForm = deepClone(data);
       },
-      remove (node, data) {
+      remove(node, data) {
         if (data.children && data.children.length > 0) {
-          this.$message.error({message: '该节点存在子级不能删除'});
+          this.$message.error({ message: '该节点存在子级不能删除' });
           return;
         }
         const parent = node.parent;
         const children = parent.data.children || parent.data;
-        const index = children.findIndex(d=> d.id === data.id);
+        const index = children.findIndex(d => d.id === data.id);
         this.$confirm('确定要删除该节点吗？', '温馨提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(()=> {
+        }).then(() => {
           // todo 调用后台删除菜单api
           children.splice(index, 1);
           this.treeData = Object.assign([], this.treeData);
-        }).catch(()=> {
+        }).catch(() => {
           this.$message({
             type: 'info',
             message: '已取消删除'
           });
         });
       },
-      renderContent (h, {node, data, store}) {
+      renderContent(h, { node, data, store }) {
         return h('span',
           [
             h('span', data.name),
-            h('span', {style: {position: 'absolute', right: '16px', marginTop: '-6px'}}, [
+            h('span', { style: { position: 'absolute', right: '16px', marginTop: '-6px' }}, [
               data.resource === '1' || data.resource === 'org' ? h('el-button',
                 {
-                  props: {size: 'mini', type: 'text'},
+                  props: { size: 'mini', type: 'text' },
                   on: {
-                    click: ()=> {
+                    click: () => {
                       this.append(data);
                     }
                   }
@@ -229,9 +230,9 @@
                 '新增') : null,
               data.resource !== 'org' ? h('el-button',
                 {
-                  props: {size: 'mini', type: 'text'},
+                  props: { size: 'mini', type: 'text' },
                   on: {
-                    click: ()=> {
+                    click: () => {
                       this.edit(data);
                     }
                   }
@@ -239,9 +240,9 @@
                 '修改') : null, // todo 描述换成图标
               data.resource !== 'org' ? h('el-button',
                 {
-                  props: {size: 'mini', type: 'text'},
+                  props: { size: 'mini', type: 'text' },
                   on: {
-                    click: ()=> {
+                    click: () => {
                       this.remove(node, data);
                     }
                   }
@@ -250,17 +251,17 @@
             ])
           ]);
       },
-      handleClose () {
+      handleClose() {
         this.showDialog = false;
       },
-      getCurrentNode (node) {
+      getCurrentNode(node) {
         if (node.resource === 'org') {
-          this.$message.error({message: '顶级机构不能被修改'});
+          this.$message.error({ message: '顶级机构不能被修改' });
           return;
         }
         this.ruleForm = node;
       },
-      showMenu (e, d, n, c) {
+      showMenu(e, d, n, c) {
         // 右键事件
       }
     }

@@ -24,10 +24,10 @@
     },
     computed: {
       openSearch() {
-        return this.toggleOpen
+        return this.toggleOpen;
       }
     }
-  }
+  };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

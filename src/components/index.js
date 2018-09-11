@@ -2,7 +2,7 @@ import Vue from 'vue';
 import IconBtn from './IconBtn';
 import SearchTem from './SearchTem';
 
-const install = function (Vue, options = {}) {
+const install = function(Vue, options = {}) {
   // 静态方法
   if (install.installed) return;
   install.installed = true;
@@ -11,8 +11,8 @@ const install = function (Vue, options = {}) {
   Vue.component('iconBtn', IconBtn);
   Vue.component('SearchTem', SearchTem);
 };
-var components = {install};
+var components = { install };
 
 Vue.use(components);
 
-export default {components};
+export default { components };

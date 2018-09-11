@@ -27,7 +27,7 @@ module.exports = {
   'rules': {
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
-      'before': false,
+      'before': true,
       'after': true
     }],
     'block-spacing': [2, 'always'],
@@ -105,7 +105,7 @@ module.exports = {
     }],
     'no-lone-blocks': 2,
     'no-mixed-spaces-and-tabs': 2,
-    'no-multi-spaces': 2,
+    'no-multi-spaces': 0,
     'no-multi-str': 2,
     'no-multiple-empty-lines': [2, {
       'max': 1
@@ -172,7 +172,7 @@ module.exports = {
       'after': true
     }],
     'space-before-blocks': [2, 'always'],
-    'space-before-function-paren': [2, 'always'],
+    'space-before-function-paren': [0, 'always'],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
     'space-unary-ops': [2, {
@@ -190,10 +190,9 @@ module.exports = {
     'yoda': [2, 'never'],
     'prefer-const': 2,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'object-curly-spacing': [1, 'never', {
+    'object-curly-spacing': [2, 'always', {
       objectsInObjects: false
     }],
     'array-bracket-spacing': [2, 'never']
   }
 }
-
