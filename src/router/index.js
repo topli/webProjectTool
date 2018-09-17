@@ -30,15 +30,18 @@ export const constantRouterMap = [
   { path: '/404', component: () => import('@/views/errorPage/404'), hidden: true },
   { path: '/401', component: () => import('@/views/errorPage/401'), hidden: true },
   {
-    path: '',
-    component: Layout,
-    redirect: 'dashboard',
-    children: [{
-      path: 'dashboard',
-      component: () => import('@/views/dashboard/index'),
-      name: 'dashboard',
-      meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
-    }]
+    path: '', component: Layout, redirect: 'dashboard', children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index'),
+        name: 'dashboard',
+        meta: {
+          title: 'dashboard',
+          icon: 'dashboard',
+          noCache: true
+        }
+      }
+    ]
   }
 ];
 
@@ -52,11 +55,10 @@ export const asyncRouterMap = [
   {
     path: '/userCenter',
     component: Layout,
-    alwaysShow: true, // will always show the root menu
+    alwaysShow: false, // will always show the root menu
     meta: {
       title: 'userCenter',
-      icon: 'user',
-      roles: ['', ''] // you can set roles in root nav
+      icon: 'user'
     },
     children: [
       {
@@ -64,9 +66,7 @@ export const asyncRouterMap = [
         component: () => import('@/views/page/userCenter/user/index'),
         name: 'userManage',
         meta: {
-          title: 'userManage',
-          roles: [''], // or you can only set roles in sub nav
-          btnRoles: ['edit', 'check']
+          title: 'userManage'
         }
       },
       {
@@ -74,9 +74,7 @@ export const asyncRouterMap = [
         component: () => import('@/views/page/userCenter/resources/index'),
         name: 'resourcesManage',
         meta: {
-          title: 'resourcesManage',
-          roles: [''], // or you can only set roles in sub nav
-          btnRoles: ['edit', 'check']
+          title: 'resourcesManage'
         }
       }
     ]
