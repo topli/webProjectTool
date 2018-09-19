@@ -3,7 +3,7 @@
   <div class="search-tem">
     <el-row>
       <el-col :span="24">
-        <div class="search-from" :class="{'toggle-from':openSearch}">
+        <div class="search-form" :style="style">
           <slot></slot>
         </div>
         <div class="search-btn">
@@ -16,41 +16,48 @@
 
 <script>
   export default {
+    data () {
+      return {
+        formHeight: 0
+      };
+    },
     props: {
       toggleOpen: {
         type: Boolean,
-        default: true
+        default: false
       }
+    },
+    mounted() {
+      this.formHeight = this.$slots.default[0].elm.clientHeight;
     },
     computed: {
       openSearch() {
         return this.toggleOpen;
+      },
+      style() {
+        if (this.toggleOpen) {
+          return { height: this.formHeight + 'px' };
+        } else {
+          return { height: '50px' };
+        }
       }
     }
   };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+
   .search-tem {
     position: relative;
   }
-
-  .search-from {
+  .search-form {
     width: 100%;
     padding-right: 120px;
-    transition: height 0.3s;
-    -moz-transition: height 0.3s; /* Firefox 4 */
-    -webkit-transition: height 0.3s; /* Safari 和 Chrome */
-    -o-transition: height 0.3s; /* Opera */
-  }
-
-  .toggle-from {
-    transition: height 0.3s;
-    -moz-transition: height 0.3s; /* Firefox 4 */
-    -webkit-transition: height 0.3s; /* Safari 和 Chrome */
-    -o-transition: height 0.3s; /* Opera */
-    height: 50px;
     overflow: hidden;
+    transition: height 0.3s;
+    -moz-transition: height 0.3s; /* Firefox 4 */
+    -webkit-transition: height 0.3s; /* Safari 和 Chrome */
+    -o-transition: height 0.3s; /* Opera */
   }
 
   .search-btn {
@@ -64,10 +71,8 @@
 
 <style rel="stylesheet/scss" lang="scss">
   .search-btn {
-
-  .btn {
-    display: inline-flex;
-  }
-
+    .btn {
+      display: inline-flex;
+    }
   }
 </style>

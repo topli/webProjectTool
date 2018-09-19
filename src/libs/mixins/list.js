@@ -19,13 +19,13 @@ export default {
       pageSizeOpts: [10, 20, 50, 100],
       multipleSelection: [],
       totalElement: 0,
-      openSearch: true
+      openSearch: false
     };
   },
   computed: {
     ...mapGetters(['roles']),
     toggleFromIcon() {
-      return this.openSearch ? 'el-icon-arrow-down' : 'el-icon-arrow-up';
+      return this.openSearch ? 'el-icon-arrow-up' : 'el-icon-arrow-down';
     }
   },
   created() {
@@ -43,11 +43,9 @@ export default {
       this._getList();
     },
     handleSizeChange(val) {
-      console.log('handleSizeChange');
       this.searchData.pageSize = val;
     },
     handleCurrentChange(val) {
-      console.log('handleCurrentChange');
       this.searchData.pageNo = val;
       this._getList();
     }

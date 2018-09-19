@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+// import { fileDisplay } from './getFiles';
 
+// fileDisplay();
 Vue.use(Router);
 
 /* Layout */
@@ -55,7 +57,7 @@ export const asyncRouterMap = [
   {
     path: '/userCenter',
     component: Layout,
-    alwaysShow: false, // will always show the root menu
+    alwaysShow: true, // will always show the root menu
     meta: {
       title: 'userCenter',
       icon: 'user'
