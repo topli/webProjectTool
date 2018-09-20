@@ -18,15 +18,11 @@ export default {
       searchFrom: {},
       pageSizeOpts: [10, 20, 50, 100],
       multipleSelection: [],
-      totalElement: 0,
-      openSearch: false
+      totalElement: 0
     };
   },
   computed: {
-    ...mapGetters(['roles']),
-    toggleFromIcon() {
-      return this.openSearch ? 'el-icon-arrow-up' : 'el-icon-arrow-down';
-    }
+    ...mapGetters(['roles'])
   },
   created() {
     this._getList();
@@ -36,9 +32,6 @@ export default {
   methods: {
     ...mapActions([]),
     debounce,
-    openSearchFun() {
-      this.openSearch = !this.openSearch;
-    },
     onSearch() {
       this._getList();
     },

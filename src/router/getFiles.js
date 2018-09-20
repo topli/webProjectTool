@@ -3,11 +3,11 @@ const fs = require('fs');
 const path = require('path');
 // 解析需要遍历的文件夹，我这以E盘根目录为例
 const filePath = path.resolve('../views/page/');
+fileDisplay(filePath);
 /**
  * 文件遍历方法
- * @param filePath 需要遍历的文件路径
  */
-export const fileDisplay = () => {
+export const fileDisplay = (filePath) => {
   // 根据文件路径读取文件，返回文件列表
   fs.readdir(filePath, (err, files) => {
     if (err) {

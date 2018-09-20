@@ -6,8 +6,13 @@
         <div class="search-form" :style="style">
           <slot></slot>
         </div>
-        <div class="search-btn">
-          <slot name="btn"></slot>
+        <div class="search-btn" :style="btnStyle">
+          <slot name="btn">
+            <div class="btn">
+              <el-button v-if="showMore" type="text" @click="openSearchFun" :icon="toggleFromIcon">更多</el-button>
+              <el-button type="primary" @click="onSearch">查询</el-button>
+            </div>
+          </slot>
         </div>
       </el-col>
     </el-row>
@@ -18,28 +23,58 @@
   export default {
     data () {
       return {
-        formHeight: 0
+        formHeight: 0,
+        toggleOpen: false
       };
     },
     props: {
-      toggleOpen: {
-        type: Boolean,
-        default: false
+      paddingRight: {
+        type: String,
+        default: '135'
       }
     },
+    created() {
+    },
     mounted() {
-      this.formHeight = this.$slots.default[0].elm.clientHeight;
+      this.getFormHeight();
+      window.addEventListener('resize', () => {
+        this.getFormHeight();
+      });
     },
     computed: {
-      openSearch() {
-        return this.toggleOpen;
+      showMore() {
+        return this.formHeight > 58;
       },
       style() {
+        const defStyle = { paddingRight: this.paddingRight + 'px' };
         if (this.toggleOpen) {
-          return { height: this.formHeight + 'px' };
+          defStyle.height = this.formHeight + 'px';
         } else {
-          return { height: '50px' };
+          defStyle.height = '50px';
         }
+        return defStyle;
+      },
+      btnStyle() {
+        const defStyle = { width: this.paddingRight + 'px' };
+        return defStyle;
+      },
+      toggleFromIcon() {
+        return this.toggleOpen ? 'el-icon-arrow-up' : 'el-icon-arrow-down';
+      }
+    },
+    methods: {
+      getFormHeight() {
+        if (this.$slots.default[0]) {
+          this.formHeight = this.$slots.default[0].elm.clientHeight;
+        } else {
+          this.formHeight = 58;
+        }
+      },
+      openSearchFun() {
+        this.toggleOpen = !this.toggleOpen;
+      },
+      onSearch() {
+        this.$emit('on-search');
       }
     }
   };
@@ -51,8 +86,8 @@
     position: relative;
   }
   .search-form {
+    min-width: 135px;
     width: 100%;
-    padding-right: 120px;
     overflow: hidden;
     transition: height 0.3s;
     -moz-transition: height 0.3s; /* Firefox 4 */
@@ -61,18 +96,12 @@
   }
 
   .search-btn {
-    width: 120px;
     position: absolute;
     top: 0;
     right: 10px;
-
-  }
-</style>
-
-<style rel="stylesheet/scss" lang="scss">
-  .search-btn {
     .btn {
-      display: inline-flex;
+      text-align: right;
     }
+
   }
 </style>

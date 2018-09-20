@@ -1,6 +1,6 @@
 <template>
   <div class="list-tem">
-    <search-tem :toggleOpen="openSearch">
+    <search-tem @on-search="onSearch">
       <el-form :inline="true" :model="searchFrom">
         <el-form-item>
           <el-input v-model="searchFrom.user" placeholder="审批人"></el-input>
@@ -23,7 +23,7 @@
         <el-form-item>
           <el-input v-model="searchFrom.user" placeholder="审批人"></el-input>
         </el-form-item>
-        <el-form-item>
+        <!--<el-form-item>
           <el-select v-model="searchFrom.region" placeholder="活动区域">
             <el-option label="区域一" value="shanghai"></el-option>
             <el-option label="区域二" value="beijing"></el-option>
@@ -64,12 +64,8 @@
             <el-option label="区域一" value="shanghai"></el-option>
             <el-option label="区域二" value="beijing"></el-option>
           </el-select>
-        </el-form-item>
+        </el-form-item>-->
       </el-form>
-      <div slot="btn" class="btn">
-        <el-button type="text" @click="openSearchFun" :icon="toggleFromIcon">更多</el-button>
-        <el-button type="primary" @click="onSearch">查询</el-button>
-      </div>
     </search-tem>
     <div class="list-div">
       <el-button type="ghost" @click="onSearch" v-btn-auth="'add'">新增</el-button>
