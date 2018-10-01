@@ -1,21 +1,17 @@
 <template>
   <!-- list search template -->
   <div class="search-tem">
-    <el-row>
-      <el-col :span="24">
-        <div class="search-form" :style="style">
-          <slot></slot>
+    <div class="search-form" :style="style">
+      <slot></slot>
+    </div>
+    <div class="search-btn" :style="btnStyle">
+      <slot name="btn">
+        <div class="btn">
+          <el-button v-if="showMore" type="text" @click="openSearchFun" :icon="toggleFromIcon">更多</el-button>
+          <el-button type="primary" @click="onSearch">查询</el-button>
         </div>
-        <div class="search-btn" :style="btnStyle">
-          <slot name="btn">
-            <div class="btn">
-              <el-button v-if="showMore" type="text" @click="openSearchFun" :icon="toggleFromIcon">更多</el-button>
-              <el-button type="primary" @click="onSearch">查询</el-button>
-            </div>
-          </slot>
-        </div>
-      </el-col>
-    </el-row>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -84,6 +80,7 @@
 
   .search-tem {
     position: relative;
+    width: 100%;
   }
   .search-form {
     min-width: 135px;

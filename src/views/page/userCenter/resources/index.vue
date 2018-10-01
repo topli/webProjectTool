@@ -213,41 +213,24 @@
           });
         });
       },
+      renderIconBtn(h, data, props, fun) {
+        return h('icon-btn', {
+          props: props,
+          on: {
+            click: () => {
+              fun && fun(data);
+            }
+          }
+        });
+      },
       renderContent(h, { node, data, store }) {
         return h('span',
           [
             h('span', data.name),
             h('span', { style: { position: 'absolute', right: '16px', marginTop: '-6px' }}, [
-              data.resource === '1' || data.resource === 'org' ? h('el-button',
-                {
-                  props: { size: 'mini', type: 'text' },
-                  on: {
-                    click: () => {
-                      this.append(data);
-                    }
-                  }
-                },
-                '新增') : null,
-              data.resource !== 'org' ? h('el-button',
-                {
-                  props: { size: 'mini', type: 'text' },
-                  on: {
-                    click: () => {
-                      this.edit(data);
-                    }
-                  }
-                },
-                '修改') : null, // todo 描述换成图标
-              data.resource !== 'org' ? h('el-button',
-                {
-                  props: { size: 'mini', type: 'text' },
-                  on: {
-                    click: () => {
-                      this.remove(node, data);
-                    }
-                  }
-                },
-                '删除') : null // todo 描述换成图标
+              data.resource === '1' || data.resource === 'org' ? this.renderIconBtn(h, data, { icon: 'add', content: '新增' }, this.append) : null,
+              data.resource !== 'org' ? this.renderIconBtn(h, data, { icon: 'edit', content: '编辑' }, this.edit) : null, // todo 描述换成图标
+              data.resource !== 'org' ? this.renderIconBtn(h, data, { icon: 'delete', content: '删除' }, this.remove) : null // todo 描述换成图标
             ])
           ]);
       },
