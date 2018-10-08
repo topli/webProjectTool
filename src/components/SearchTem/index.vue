@@ -39,7 +39,7 @@
     },
     computed: {
       showMore() {
-        return this.formHeight > 58;
+        return this.formHeight > 60;
       },
       style() {
         const defStyle = { paddingRight: this.paddingRight + 'px' };

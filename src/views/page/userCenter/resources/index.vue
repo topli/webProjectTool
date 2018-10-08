@@ -224,13 +224,13 @@
         });
       },
       renderContent(h, { node, data, store }) {
-        return h('span',
+        return h('span', { style: { width: '100%' }},
           [
             h('span', data.name),
-            h('span', { style: { position: 'absolute', right: '16px', marginTop: '-6px' }}, [
+            h('span', { style: { position: 'relative', float: 'right', right: '16px', marginTop: '-6px' }}, [
               data.resource === '1' || data.resource === 'org' ? this.renderIconBtn(h, data, { icon: 'add', content: '新增' }, this.append) : null,
-              data.resource !== 'org' ? this.renderIconBtn(h, data, { icon: 'edit', content: '编辑' }, this.edit) : null, // todo 描述换成图标
-              data.resource !== 'org' ? this.renderIconBtn(h, data, { icon: 'delete', content: '删除' }, this.remove) : null // todo 描述换成图标
+              data.resource !== 'org' ? this.renderIconBtn(h, data, { icon: 'edit', content: '编辑' }, this.edit) : null,
+              data.resource !== 'org' ? this.renderIconBtn(h, data, { icon: 'delete', content: '删除' }, this.remove) : null
             ])
           ]);
       },
