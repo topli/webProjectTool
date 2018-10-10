@@ -39,7 +39,7 @@ module.exports = {
     }
   },
   externals: {
-    'echarts': 'echarts'
+    // 'echarts': 'echarts'
   },
   module: {
     rules: [

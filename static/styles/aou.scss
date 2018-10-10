@@ -2,7 +2,12 @@
   padding: 0
 }
 .aou-body {
-  padding: 0
+  padding: 0;
+  .el-form--inline {
+    .el-form-item {
+      min-width: 45%;
+    }
+  }
 }
 .aou-footer {
   padding: 10px 0;

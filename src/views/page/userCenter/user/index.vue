@@ -26,9 +26,9 @@
       </el-form>
     </search-tem>
     <div class="list-el">
-      <el-button type="ghost" @click="addOrUpdate" v-btn-auth="">新增</el-button>
-      <el-button type="ghost" @click="importFun">导入</el-button>
-      <el-button type="ghost" @click="exportFun">导出</el-button>
+      <el-button type="ghost" @click="addOrUpdate" v-btn-auth="">{{$t('table.add')}}</el-button>
+      <el-button type="ghost" @click="importFun">{{$t('table.import')}}</el-button>
+      <el-button type="ghost" @click="exportFun">{{$t('table.export')}}</el-button>
     </div>
     <div class="list-el">
       <el-table
@@ -44,28 +44,22 @@
           type="index"
           width="50">
         </el-table-column>
-        <el-table-column
-          prop="username"
-          label="姓名"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="age"
-          label="年龄"
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="createTime"
-          label="创建时间">
-        </el-table-column>
+        <template v-for="col in columnsTitle">
+          <el-table-column
+            :prop="col.key"
+            :label="col.title + (col.unit ? '(' + col.unit + ')' : '')"
+            :width="col.width || null"
+            :formatter="col.formatter || null">
+          </el-table-column>
+        </template>
         <el-table-column
           fixed="right"
           label="操作"
           width="100"
           align="center">
           <template slot-scope="scope">
-            <icon-btn icon="edit" content="编辑" auth-code="" @click="addOrUpdate(scope.row.id)"></icon-btn>
-            <icon-btn icon="delete" content="删除" auth-code="" @click="deleteItem(scope.row.id)"></icon-btn>
+            <icon-btn icon="edit" :content="$t('table.edit')" auth-code="" @click="addOrUpdate(scope.row.id)"></icon-btn>
+            <icon-btn icon="delete" :content="$t('table.delete')" auth-code="" @click="deleteItem(scope.row.id)"></icon-btn>
           </template>
         </el-table-column>
       </el-table>
@@ -85,7 +79,7 @@
       :visible.sync="diaVisible"
       width="diaWidth"
       center>
-      <component :is="diaCurrentPage"></component>
+      <component :is="diaCurrentPage" ref="dialogBox" :data="dialogData"></component>
     </el-dialog>
   </div>
 </template>
@@ -100,7 +94,32 @@
     components: { addOrUpdate, importTemplate },
     mixins: [list],
     data() {
-      return {};
+      return {
+        columnsTitle: [
+          {
+            key: 'username',
+            title: '姓名',
+            width: '180',
+            unit: '',
+            filter: ''
+          },
+          {
+            key: 'age',
+            title: '年龄',
+            width: '180',
+            unit: '岁',
+            filter: ''
+          },
+          {
+            key: 'createTime',
+            title: '创建时间',
+            unit: '',
+            formatter: (row, col, value, index) => {
+              return this.parseTime(value);
+            }
+          }
+        ]
+      };
     },
     mounted() {
     },
@@ -111,6 +130,14 @@
           this.list = res.data.items;
           this.totalElement = res.data.total;
         });
+      },
+      getFormById(id) {
+        console.log(id);
+        setTimeout(() => {
+          this.list.forEach((item) => {
+            if (item.id === id) this.dialogData = item;
+          });
+        }, 5000);
       },
       clearForm() {
       },
