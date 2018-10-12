@@ -31,38 +31,7 @@
       <el-button type="ghost" @click="exportFun">{{$t('table.export')}}</el-button>
     </div>
     <div class="list-el">
-      <el-table
-        :data="list"
-        border
-        style="width: 100%">
-        <el-table-column
-          fixed
-          type="selection"
-          width="55">
-        </el-table-column>
-        <el-table-column
-          type="index"
-          width="50">
-        </el-table-column>
-        <template v-for="col in columnsTitle">
-          <el-table-column
-            :prop="col.key"
-            :label="col.title + (col.unit ? '(' + col.unit + ')' : '')"
-            :width="col.width || null"
-            :formatter="col.formatter || null">
-          </el-table-column>
-        </template>
-        <el-table-column
-          fixed="right"
-          label="操作"
-          width="100"
-          align="center">
-          <template slot-scope="scope">
-            <icon-btn icon="edit" :content="$t('table.edit')" auth-code="" @click="addOrUpdate(scope.row.id)"></icon-btn>
-            <icon-btn icon="delete" :content="$t('table.delete')" auth-code="" @click="deleteItem(scope.row.id)"></icon-btn>
-          </template>
-        </el-table-column>
-      </el-table>
+      <t-for-column selection index :data="list" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-column>
       <el-pagination
         class="list-page"
         @size-change="handleSizeChange"
@@ -108,14 +77,53 @@
             title: '年龄',
             width: '180',
             unit: '岁',
-            filter: ''
+            filters: [
+              { text: '> 20', value: 20 },
+              { text: '> 50', value: 50 }
+            ]
+          },
+          {
+            key: 'age',
+            title: 'test',
+            width: '180',
+            filters: [
+              { text: 'test1', value: 11 },
+              { text: 'test2', value: 22 }
+            ],
+            renderHeader: (h, params) => {
+              return h('span', [h('span', 'test'), this.tableColumnTooltip(h, '提示')]);
+            },
+            render: (h, params) => {
+              console.log(11);
+              return h('div', [
+                h('el-input', {
+                  props: { value: params.row.age },
+                  on: {
+                    input: (val) => {
+                      // 通过index找到对应的值 并改变输入值
+                      this.$set(this.list[params.$index], 'age', val);
+                    }
+                  }
+                })]);
+            }
           },
           {
             key: 'createTime',
             title: '创建时间',
             unit: '',
-            formatter: (row, col, value, index) => {
-              return this.parseTime(value);
+            render: (h, params) => {
+              return h('span', this.parseTime(params.row.createTime));
+            }
+          },
+          {
+            title: '操作',
+            width: '100',
+            align: 'center',
+            render: (h, params) => {
+              return h('div', this.createIconBtn(h, params, [
+                { icon: 'edit', content: 'edit', authCode: '', handler: this.addOrUpdate },
+                { icon: 'delete', content: 'delete', authCode: '', handler: this.deleteItem }
+              ]));
             }
           }
         ]

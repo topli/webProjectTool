@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import IconBtn from './IconBtn';
 import SearchTem from './SearchTem';
+import TableForColumn from './TableForColumn';
 
 const install = function(Vue, options = {}) {
   // 静态方法
@@ -10,6 +11,7 @@ const install = function(Vue, options = {}) {
   // Vue.component('hyButton', hyButton);
   Vue.component('iconBtn', IconBtn);
   Vue.component('SearchTem', SearchTem);
+  Vue.component('TForColumn', TableForColumn);
 };
 var components = { install };
 
