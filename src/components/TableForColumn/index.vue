@@ -1,37 +1,44 @@
 <template>
-  <el-table
-    :data="data"
-    border
-    @selection-change="handleSelectionChange"
-    style="width: 100%">
-    <el-table-column
-      v-if="selection"
-      fixed
-      type="selection"
-      width="55">
-    </el-table-column>
-    <el-table-column
-      v-if="index"
-      type="index"
-      width="50">
-    </el-table-column>
-    <template v-for="col in columnsTitle">
+  <transition name="fade">
+    <el-table
+      v-if="showTable"
+      :data="data"
+      border
+      @selection-change="handleSelectionChange"
+      style="width: 100%"
+      :height="height">
       <el-table-column
-        show-overflow-tooltip
-        :prop="col.key"
-        :fixed="col.fixed || null"
-        :align="col.align || 'left'"
-        :label="label(col)"
-        :width="col.width || null"
-        :renderHeader="col.renderHeader"
-        :filters="col.filters"
-        filter-placement="bottom">
-        <template slot-scope="scope">
-          <render-column :renderContent="col.render" :scope="scope" :prop="col.key"></render-column>
-        </template>
+        v-if="selection"
+        fixed
+        type="selection"
+        align="center"
+        width="55">
       </el-table-column>
-    </template>
-  </el-table>
+      <el-table-column
+        v-if="index"
+        type="index"
+        align="center"
+        width="70">
+      </el-table-column>
+      <template v-for="col in columnsTitle">
+        <el-table-column
+          show-overflow-tooltip
+          :prop="col.key"
+          :fixed="col.fixed || null"
+          :align="col.align || 'left'"
+          :label="label(col)"
+          :width="col.width || null"
+          :renderHeader="col.renderHeader"
+          :filters="col.searchFilters"
+          filter-placement="bottom">
+          <template slot-scope="scope">
+            <render-column :renderContent="col.render" :scope="scope" :prop="col.key"
+                           :filters="col.filters"></render-column>
+          </template>
+        </el-table-column>
+      </template>
+    </el-table>
+  </transition>
 </template>
 
 <script>
@@ -39,23 +46,47 @@
   export default {
     components: { renderColumn },
     data () {
-      return {};
+      return {
+        visible: false,
+        tableHeight: 0
+      };
     },
     props: {
       selection: { type: Boolean, default: false },
       index: { type: Boolean, default: false },
-      data: Array,
-      columnsTitle: Array
+      data: { type: Array, required: true },
+      columnsTitle: { type: Array, required: true }
     },
     created() {
+      setTimeout(() => {
+        this.visible = true;
+      }, 1000);
+      window.addEventListener('resize', () => {
+        this.getTableHeight();
+      });
     },
     mounted() {
+      this.$nextTick(() => {
+        this.getTableHeight();
+      });
     },
     computed: {
+      showTable() {
+        return this.data.length > 0 || this.visible;
+      },
+      height() {
+        if (this.tableHeight < 220) {
+          return 220;
+        }
+        return this.tableHeight;
+      }
     },
     methods: {
+      getTableHeight() {
+        // this.tableHeight = this.$parent.$parent.$el.clientHeight - 140;
+        this.tableHeight = document.body.clientHeight - 220;
+      },
       label(col) {
-        console.log(22222);
         return col.title + (col.unit ? '(' + col.unit + ')' : '');
       },
       handleSelectionChange(selection) {

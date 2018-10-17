@@ -68,16 +68,14 @@
           {
             key: 'username',
             title: '姓名',
-            width: '180',
-            unit: '',
-            filter: ''
+            width: '180'
           },
           {
             key: 'age',
             title: '年龄',
             width: '180',
             unit: '岁',
-            filters: [
+            searchFilters: [
               { text: '> 20', value: 20 },
               { text: '> 50', value: 50 }
             ]
@@ -86,15 +84,14 @@
             key: 'age',
             title: 'test',
             width: '180',
-            filters: [
+            searchFilters: [
               { text: 'test1', value: 11 },
               { text: 'test2', value: 22 }
             ],
             renderHeader: (h, params) => {
-              return h('span', [h('span', 'test'), this.tableColumnTooltip(h, '提示')]);
+              return h('span', [h('span', 'test'), this.iconTooltip(h, '提示')]);
             },
             render: (h, params) => {
-              console.log(11);
               return h('div', [
                 h('el-input', {
                   props: { value: params.row.age },
@@ -110,17 +107,14 @@
           {
             key: 'createTime',
             title: '创建时间',
-            unit: '',
-            render: (h, params) => {
-              return h('span', this.parseTime(params.row.createTime));
-            }
+            filters: 'parseTime'
           },
           {
             title: '操作',
             width: '100',
             align: 'center',
             render: (h, params) => {
-              return h('div', this.createIconBtn(h, params, [
+              return h('div', this.iconBtn(h, params, [
                 { icon: 'edit', content: 'edit', authCode: '', handler: this.addOrUpdate },
                 { icon: 'delete', content: 'delete', authCode: '', handler: this.deleteItem }
               ]));
@@ -140,7 +134,6 @@
         });
       },
       getFormById(id) {
-        console.log(id);
         setTimeout(() => {
           this.list.forEach((item) => {
             if (item.id === id) this.dialogData = item;

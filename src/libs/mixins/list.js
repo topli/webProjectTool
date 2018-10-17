@@ -2,7 +2,8 @@
  *  描述：混合类
  */
 import { mapActions, mapGetters } from 'vuex';
-import { debounce, parseTime, createIconBtn, tableColumnTooltip } from '@/libs/utils';
+import { debounce, parseTime } from '@/libs/utils';
+import { iconBtn, iconTooltip, tSelect } from '@/libs/utils/table';
 import 'static/styles/list.scss'; // 列表样式
 import 'static/styles/aou.scss'; // 新增弹窗样式
 
@@ -40,8 +41,9 @@ export default {
     ...mapActions([]),
     debounce, // 函数防抖
     parseTime, // 日期格式转换
-    createIconBtn, // 创建操作按钮方法
-    tableColumnTooltip, // render提示组件
+    iconBtn, // 创建操作按钮方法
+    iconTooltip, // render提示组件
+    tSelect, // render Select 组件
     handleSelectionChange(selection) {
       this.multipleSelection = selection;
     },
@@ -62,7 +64,7 @@ export default {
     addOrUpdate(row) {
       this.diaVisible = true;
       this.diaCurrentPage = 'addOrUpdate';
-      this.diaTitle = (typeof row.id === 'object') ? this.$t('table.add') : this.$t('table.edit');
+      this.diaTitle = (row.toString() === '[object Object]') ? this.$t('table.edit') : this.$t('table.add');
       this.$nextTick(() => {
         this.dialogBox = this.$refs['dialogBox'] || null;
         if (!this.dialogBox) console.error('请设置component组件的ref为dialogBox');

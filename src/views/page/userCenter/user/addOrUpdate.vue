@@ -1,5 +1,5 @@
 <template>
-  <div class="aou-template">
+  <div class="aou-template" v-loading="actionLoading">
     <div class="aou-body">
       <el-form ref="form" :inline="true" :model="form" label-width="80px">
         <el-form-item label="姓名">
@@ -11,7 +11,7 @@
         <el-form-item label="身高">
           <el-input v-model="form.height"></el-input>
         </el-form-item>
-        <el-form-item label="体重">
+        <el-form-item label="启用/禁用">
           <el-switch v-model="form.delivery"></el-switch>
         </el-form-item>
       </el-form>
@@ -32,10 +32,15 @@
     },
     data() {
       return {
-        form: {}
+        form: {},
+        loading: true
       };
     },
-    mounted() {
+    mounted() {},
+    computed: {
+      actionLoading() {
+        return this.$store.getters.actionLoading;
+      }
     },
     methods: {
       // 取消按钮
@@ -44,9 +49,13 @@
       },
       // 提交按钮
       submit() {
-        console.log(this.form);
-        // 执行操作后隐藏弹出框
-        this.cancel();
+        this.$store.dispatch('setAL', true);
+        setTimeout(() => {
+          this.$message.success('成功');
+          this.$store.dispatch('setAL', false);
+          // 执行操作后隐藏弹出框
+          this.cancel();
+        }, 3000);
       }
     },
     watch: {
