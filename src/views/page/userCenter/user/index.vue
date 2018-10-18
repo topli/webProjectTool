@@ -46,9 +46,9 @@
     <el-dialog
       :title="diaTitle"
       :visible.sync="diaVisible"
-      width="diaWidth"
+      :width="diaWidth"
       center>
-      <component :is="diaCurrentPage" ref="dialogBox" :data="dialogData"></component>
+      <component :is="diaCurrentPage" v-if="diaVisible" ref="dialogBox" :data="dialogData"></component>
     </el-dialog>
   </div>
 </template>
@@ -56,11 +56,10 @@
 <script>
   import { fetchList } from './service';
   import addOrUpdate from './addOrUpdate';
-  import importTemplate from './importTemplate';
   import list from '@/libs/mixins/list';
 
   export default {
-    components: { addOrUpdate, importTemplate },
+    components: { addOrUpdate },
     mixins: [list],
     data() {
       return {
@@ -82,14 +81,15 @@
           },
           {
             key: 'age',
-            title: 'test',
+            title: '测试',
             width: '180',
             searchFilters: [
               { text: 'test1', value: 11 },
               { text: 'test2', value: 22 }
             ],
             renderHeader: (h, params) => {
-              return h('span', [h('span', 'test'), this.iconTooltip(h, '提示')]);
+              console.log(params);
+              return h('span', [h('span', params.column.label), this.iconTooltip(h, '提示')]);
             },
             render: (h, params) => {
               return h('div', [
@@ -120,7 +120,8 @@
               ]));
             }
           }
-        ]
+        ],
+        importType: 'user'
       };
     },
     mounted() {

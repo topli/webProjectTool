@@ -51,6 +51,7 @@
       submit() {
         this.$store.dispatch('setAL', true);
         setTimeout(() => {
+          console.log(this.file);
           this.$message.success('成功');
           this.$store.dispatch('setAL', false);
           // 执行操作后隐藏弹出框

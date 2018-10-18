@@ -6,8 +6,10 @@ import { debounce, parseTime } from '@/libs/utils';
 import { iconBtn, iconTooltip, tSelect } from '@/libs/utils/table';
 import 'static/styles/list.scss'; // 列表样式
 import 'static/styles/aou.scss'; // 新增弹窗样式
+import importTemplate from '@/components/import/index';
 
 export default {
+  components: { importTemplate },
   data() {
     return {
       list: [],
@@ -26,7 +28,8 @@ export default {
       diaWidth: '50%',
       diaCurrentPage: '',
       dialogBox: null,
-      dialogData: {}
+      dialogData: {},
+      importType: ''
     };
   },
   computed: {
@@ -78,6 +81,8 @@ export default {
     importFun() {
       this.diaVisible = true;
       this.diaCurrentPage = 'importTemplate';
+      this.diaWidth = '30%';
+      this.$store.dispatch('setImportType', this.importType);
       this.diaTitle = '导入';
     },
     exportFun() {},

@@ -1,4 +1,4 @@
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style rel="stylesheet/scss" lang="scss">
   @import './style.scss';
 </style>
 <template>
@@ -18,37 +18,37 @@
       </div>
       <div class="block">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-          <el-form-item label="资源类型" prop="resource">
+          <el-form-item :label="$t('resources.fromTitle.type')" prop="resource">
             <el-radio-group v-model="ruleForm.resource">
               <el-radio label="1">菜单</el-radio>
               <el-radio label="2">按钮</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="资源名称" prop="name">
+          <el-form-item :label="$t('resources.fromTitle.name')" prop="name">
             <el-input v-model="ruleForm.name"></el-input>
           </el-form-item>
-          <el-form-item label="父节点" prop="parentName">
+          <el-form-item :label="$t('resources.fromTitle.parent')" prop="parentName">
             <el-input v-model="ruleForm.parentName" disabled></el-input>
             <el-input v-model="ruleForm.parenId" v-show="false"></el-input>
           </el-form-item>
-          <el-form-item label="显示/隐藏" prop="show">
+          <el-form-item :label="$t('resources.fromTitle.showHide')" prop="show">
             <el-switch v-model="ruleForm.show"></el-switch>
           </el-form-item>
-          <el-form-item label="图标" prop="icon">
+          <el-form-item :label="$t('resources.fromTitle.icon')" prop="icon">
             <svg-icon v-if="ruleForm.icon" :icon-class="ruleForm.icon"
                       style="font-size: 28px;margin-top: 5px;"></svg-icon>
-            <el-button type="text" @click="showDialog = true" style="margin-left: 10px">选择图标</el-button>
+            <el-button type="text" @click="showDialog = true" style="margin-left: 10px">{{$t('resources.fromTitle.selectIcon')}}</el-button>
           </el-form-item>
           <el-form-item>
-            <el-button v-if="ruleForm.id" type="primary" @click="submitForm('ruleForm')">修改</el-button>
-            <el-button v-else type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-            <el-button @click="resetForm('ruleForm')">重置</el-button>
+            <el-button v-if="ruleForm.id" type="primary" @click="submitForm('ruleForm')">{{$t('resources.fromTitle.edit')}}</el-button>
+            <el-button v-else type="primary" @click="submitForm('ruleForm')">{{$t('resources.fromTitle.add')}}</el-button>
+            <el-button @click="resetForm('ruleForm')">{{$t('resources.fromTitle.reset')}}</el-button>
           </el-form-item>
         </el-form>
       </div>
     </div>
     <el-dialog
-      title="图标"
+      :title="$t('resources.fromTitle.icon')"
       :visible.sync="showDialog"
       width="60%"
       :before-close="handleClose">
@@ -61,7 +61,6 @@
               </div>
               <div class="icon-item">
                 <svg-icon class-name="disabled" :icon-class="item"/>
-                <span>{{item}}</span>
               </div>
             </el-tooltip>
           </div>
@@ -224,10 +223,10 @@
         });
       },
       renderContent(h, { node, data, store }) {
-        return h('span', { style: { width: '100%' }},
+        return h('span', { class: { 'custom_content': true }},
           [
-            h('span', data.name),
-            h('span', { style: { position: 'relative', float: 'right', right: '16px', marginTop: '-6px' }}, [
+            h('span', { class: { 'title': true }}, data.name),
+            h('span', [
               data.resource === '1' || data.resource === 'org' ? this.renderIconBtn(h, data, { icon: 'add', content: '新增' }, this.append) : null,
               data.resource !== 'org' ? this.renderIconBtn(h, data, { icon: 'edit', content: '编辑' }, this.edit) : null,
               data.resource !== 'org' ? this.renderIconBtn(h, data, { icon: 'delete', content: '删除' }, this.remove) : null

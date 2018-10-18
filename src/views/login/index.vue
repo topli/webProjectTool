@@ -46,7 +46,6 @@
     name: 'login',
     data() {
       const validateUsername = (rule, value, callback) => {
-        console.log(rule);
         if (!isvalidUsername(value)) {
           callback(new Error(this.$t('login.userNameError')));
         } else {

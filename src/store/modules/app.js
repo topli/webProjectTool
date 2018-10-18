@@ -8,7 +8,8 @@ const app = {
     },
     device: 'desktop',
     language: Cookies.get('language') || 'zh',
-    actionLoading: false
+    actionLoading: false,
+    importType: ''
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -34,6 +35,9 @@ const app = {
     },
     TOGGLE_ACTION_LOADING: (state, actionLoading) => {
       state.actionLoading = actionLoading;
+    },
+    SET_IMPORT_TYPE: (state, importType) => {
+      state.importType = importType;
     }
   },
   actions: {
@@ -51,6 +55,9 @@ const app = {
     },
     setAL({ commit }, actionLoading) {
       commit('TOGGLE_ACTION_LOADING', actionLoading);
+    },
+    setImportType({ commit }, importType) {
+      commit('SET_IMPORT_TYPE', importType);
     }
   }
 };

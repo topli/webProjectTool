@@ -152,6 +152,17 @@ export default {
     closeAll: '关闭所有'
   },
   resources: {
-    title: '资源列表'
+    title: '资源列表',
+    fromTitle: {
+      type: '资源类型',
+      name: '资源名称',
+      parent: '父节点',
+      showHide: '显示/隐藏',
+      icon: '图标',
+      selectIcon: '选择图标',
+      add: '创建',
+      edit: '编辑',
+      reset: '重置'
+    }
   }
 };

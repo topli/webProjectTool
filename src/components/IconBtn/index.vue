@@ -14,7 +14,7 @@
       icon: String,
       size: {
         type: String,
-        default: '18'
+        default: '16'
       },
       color: {
         type: String
