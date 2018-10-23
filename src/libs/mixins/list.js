@@ -1,7 +1,8 @@
 /**
- *  描述：混合类
+ *  混合列表模板
  */
 import { mapActions, mapGetters } from 'vuex';
+import loading from './loading';
 import { debounce, parseTime } from '@/libs/utils';
 import { iconBtn, iconTooltip, tSelect } from '@/libs/utils/table';
 import 'static/styles/list.scss'; // 列表样式
@@ -9,12 +10,11 @@ import 'static/styles/aou.scss'; // 新增弹窗样式
 import importTemplate from '@/components/import/index';
 
 export default {
+  mixins: [loading],
   components: { importTemplate },
   data() {
     return {
       list: [],
-      loading: false,
-      loadingText: '加载中...',
       searchData: {
         pageNo: 1,
         pageSize: 20
@@ -25,7 +25,7 @@ export default {
       totalElement: 0,
       diaVisible: false,
       diaTitle: '',
-      diaWidth: '50%',
+      // diaWidth: '40%',
       diaCurrentPage: '',
       dialogBox: null,
       dialogData: {},
@@ -33,7 +33,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['roles'])
+    ...mapGetters(['roles']),
+    diaWidth() {
+      if (this.diaCurrentPage === 'importTemplate') {
+        return '500px';
+      }
+      return '770px';
+    }
   },
   created() {
     this._getList();
@@ -70,18 +76,20 @@ export default {
       this.diaTitle = (row.toString() === '[object Object]') ? this.$t('table.edit') : this.$t('table.add');
       this.$nextTick(() => {
         this.dialogBox = this.$refs['dialogBox'] || null;
-        if (!this.dialogBox) console.error('请设置component组件的ref为dialogBox');
+        if (!this.dialogBox) console.error(this.$t('consoleError.dialogNullError'));
         this.dialogBox && this._clearForm();
         this.dialogBox && this.clearForm();
-        if (typeof row.id !== 'object') {
+        if (row.id) {
           this.getFormById && this.getFormById(row.id);
         }
       });
     },
     importFun() {
+      if (!this.importType) {
+        console.error(this.$t('consoleError.importTypeNullError'));
+      }
       this.diaVisible = true;
       this.diaCurrentPage = 'importTemplate';
-      this.diaWidth = '30%';
       this.$store.dispatch('setImportType', this.importType);
       this.diaTitle = '导入';
     },

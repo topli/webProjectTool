@@ -11,9 +11,6 @@
         <el-form-item label="身高">
           <el-input v-model="form.height"></el-input>
         </el-form-item>
-        <el-form-item label="所属组织">
-          <org-tree></org-tree>
-        </el-form-item>
         <el-form-item label="启用/禁用">
           <el-switch v-model="form.delivery"></el-switch>
         </el-form-item>

@@ -79,31 +79,32 @@
               { text: '> 50', value: 50 }
             ]
           },
-          {
-            key: 'age',
-            title: '测试',
-            width: '180',
-            searchFilters: [
-              { text: 'test1', value: 11 },
-              { text: 'test2', value: 22 }
-            ],
-            renderHeader: (h, params) => {
-              console.log(params);
-              return h('span', [h('span', params.column.label), this.iconTooltip(h, '提示')]);
-            },
-            render: (h, params) => {
-              return h('div', [
-                h('el-input', {
-                  props: { value: params.row.age },
-                  on: {
-                    input: (val) => {
-                      // 通过index找到对应的值 并改变输入值
-                      this.$set(this.list[params.$index], 'age', val);
-                    }
-                  }
-                })]);
-            }
-          },
+          // renderHeader 用法
+          // renderContent 用法
+          // {
+          //   key: 'age',
+          //   title: 'test',
+          //   width: '180',
+          //   searchFilters: [
+          //     { text: 'test1', value: 11 },
+          //     { text: 'test2', value: 22 }
+          //   ],
+          //   renderHeader: (h, params) => {
+          //     return h('span', [h('span', params.column.label), this.iconTooltip(h, '提示')]);
+          //   },
+          //   render: (h, params) => {
+          //     return h('div', [
+          //       h('el-input', {
+          //         props: { value: params.row.age },
+          //         on: {
+          //           input: (val) => {
+          //             // 通过index找到对应的值 并改变输入值
+          //             this.$set(this.list[params.$index], 'age', val);
+          //           }
+          //         }
+          //       })]);
+          //   }
+          // },
           {
             key: 'createTime',
             title: '创建时间',
@@ -115,8 +116,8 @@
             align: 'center',
             render: (h, params) => {
               return h('div', this.iconBtn(h, params, [
-                { icon: 'edit', content: 'edit', authCode: '', handler: this.addOrUpdate },
-                { icon: 'delete', content: 'delete', authCode: '', handler: this.deleteItem }
+                { icon: 'edit', t: 'table.edit', handler: this.addOrUpdate },
+                { icon: 'delete', t: 'table.delete', handler: this.deleteItem }
               ]));
             }
           }
@@ -130,8 +131,10 @@
       _getList() {
         this.loading = true;
         fetchList().then(res => {
-          this.list = res.data.items;
-          this.totalElement = res.data.total;
+          setTimeout(() => {
+            this.list = res.data.items;
+            this.totalElement = res.data.total;
+          }, 2000);
         });
       },
       getFormById(id) {
@@ -139,7 +142,7 @@
           this.list.forEach((item) => {
             if (item.id === id) this.dialogData = item;
           });
-        }, 5000);
+        }, 1000);
       },
       clearForm() {
       },

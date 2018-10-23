@@ -72,11 +72,46 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'resourcesManage',
-        component: () => import('@/views/page/userCenter/resources/index'),
-        name: 'resourcesManage',
+        path: 'orgManage',
+        component: () => import('@/views/page/userCenter/org/index'),
+        name: 'orgManage',
         meta: {
-          title: 'resourcesManage'
+          title: 'orgManage'
+        }
+      },
+      {
+        path: 'roleManage',
+        component: () => import('@/views/page/userCenter/role/index'),
+        name: 'roleManage',
+        meta: {
+          title: 'roleManage'
+        }
+      }
+    ]
+  },
+  {
+    path: '/sysSettings',
+    component: Layout,
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: 'sysSettings',
+      icon: 'settings'
+    },
+    children: [
+      {
+        path: 'resources',
+        component: () => import('@/views/page/sysSettings/resources/index'),
+        name: 'resources',
+        meta: {
+          title: 'resources'
+        }
+      },
+      {
+        path: 'dictionary',
+        component: () => import('@/views/page/sysSettings/dictionary/index'),
+        name: 'dictionary',
+        meta: {
+          title: 'dictionary'
         }
       }
     ]

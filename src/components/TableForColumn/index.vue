@@ -28,6 +28,7 @@
           :align="col.align || 'left'"
           :label="label(col)"
           :width="col.width || null"
+          :minWidth="col.minWidth || null"
           :renderHeader="col.renderHeader"
           :filters="col.searchFilters"
           filter-placement="bottom">
@@ -60,7 +61,7 @@
     created() {
       setTimeout(() => {
         this.visible = true;
-      }, 1000);
+      }, 200);
       window.addEventListener('resize', () => {
         this.getTableHeight();
       });
@@ -83,7 +84,6 @@
     },
     methods: {
       getTableHeight() {
-        // this.tableHeight = this.$parent.$parent.$el.clientHeight - 140;
         this.tableHeight = document.body.clientHeight - 220;
       },
       label(col) {

@@ -2,20 +2,23 @@
   <div class="aou-template" v-loading="actionLoading">
     <div class="aou-body">
       <el-form ref="form" :inline="true" :model="form" label-width="80px">
-        <el-form-item label="姓名">
-          <el-input v-model="form.username"></el-input>
+        <el-form-item label="类型">
+          <el-input v-model="form.type"></el-input>
         </el-form-item>
-        <el-form-item label="年龄">
-          <el-input v-model="form.age"></el-input>
+        <el-form-item label="标签">
+          <el-input v-model="form.label"></el-input>
         </el-form-item>
-        <el-form-item label="身高">
-          <el-input v-model="form.height"></el-input>
+        <el-form-item label="键">
+          <el-input v-model="form.key"></el-input>
         </el-form-item>
-        <el-form-item label="所属组织">
-          <org-tree></org-tree>
+        <el-form-item label="值">
+          <el-input v-model="form.value"></el-input>
+        </el-form-item>
+        <el-form-item label="分组">
+          <el-input v-model="form.group"></el-input>
         </el-form-item>
         <el-form-item label="启用/禁用">
-          <el-switch v-model="form.delivery"></el-switch>
+          <el-switch v-model="form.state"></el-switch>
         </el-form-item>
       </el-form>
     </div>
@@ -28,22 +31,17 @@
 
 <script>
   // import { fetchList } from './service';
+  import loading from '@/libs/mixins/loading';
 
   export default {
+    mixins: [loading],
     props: {
       data: Object
     },
     data() {
       return {
-        form: {},
-        loading: true
+        form: {}
       };
-    },
-    mounted() {},
-    computed: {
-      actionLoading() {
-        return this.$store.getters.actionLoading;
-      }
     },
     methods: {
       // 取消按钮

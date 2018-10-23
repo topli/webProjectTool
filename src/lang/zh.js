@@ -59,7 +59,11 @@ export default {
     i18n: '国际化',
     userCenter: '用户中心',
     userManage: '用户管理',
-    resourcesManage: '资源管理'
+    sysSettings: '系统设置',
+    resources: '资源管理',
+    dictionary: '字典管理',
+    orgManage: '组织管理',
+    roleManage: '权限管理'
   },
   navbar: {
     logOut: '退出登录',
@@ -162,7 +166,34 @@ export default {
       selectIcon: '选择图标',
       add: '创建',
       edit: '编辑',
-      reset: '重置'
+      reset: '重置',
+      code: '权限码'
+    },
+    errorTip: {
+      name: '请输入资源名称',
+      nameLength: '长度在 3 到 5 个字符',
+      code: '请输入权限码'
     }
+  },
+  org: {
+    title: '组织列表',
+    fromTitle: {
+      orgName: '组织名称',
+      parent: '上级组织',
+      state: '禁用/启用',
+      add: '创建',
+      edit: '编辑',
+      reset: '重置',
+      code: '组织编码',
+      linkman: '联系人',
+      phone: '手机'
+    },
+    errorTip: {
+      orgName: '请输入组织名称'
+    }
+  },
+  consoleError: {
+    dialogNullError: '请设置component组件的ref为dialogBox',
+    importTypeNullError: '请设置importType'
   }
 };

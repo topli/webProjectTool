@@ -8,18 +8,20 @@
 export function iconBtn(h, params, iconBtns) {
   const btns = [];
   iconBtns.forEach((item) => {
-    btns.push(h('icon-btn', {
-      props: {
-        icon: item.icon,
-        content: this.$t('table.' + item.content),
-        authCode: item.authCode
-      },
-      on: {
-        click() {
-          item.handler && item.handler(params.row);
+    if (!item.hide) {
+      btns.push(h('icon-btn', {
+        props: {
+          icon: item.icon,
+          content: this.$t(item.t),
+          authCode: item.authCode || ''
+        },
+        on: {
+          click() {
+            item.handler && item.handler(params.row);
+          }
         }
-      }
-    }));
+      }));
+    }
   });
   return btns;
 }

@@ -59,7 +59,8 @@ export default {
     i18n: 'I18n',
     userCenter: 'userCenter',
     userManage: 'userManage',
-    resourcesManage: 'resourcesManage'
+    resourcesManage: 'resourcesManage',
+    sysSettings: 'sysSettings'
   },
   navbar: {
     logOut: 'Log Out',
@@ -152,6 +153,18 @@ export default {
     closeAll: 'Close All'
   },
   resources: {
-    title: 'resources-list'
+    title: 'resources-list',
+    fromTitle: {
+      type: 'type',
+      name: 'name',
+      parent: 'parent',
+      showHide: 'show/hide',
+      icon: 'icon',
+      selectIcon: 'selectIcon',
+      add: 'add',
+      edit: 'edit',
+      reset: 'reset',
+      code: 'code'
+    }
   }
 };

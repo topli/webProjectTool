@@ -3,25 +3,13 @@
     <search-tem @on-search="onSearch">
       <el-form :inline="true" :model="searchFrom">
         <el-form-item>
-          <el-input v-model="searchFrom.user" placeholder="审批人"></el-input>
+          <el-input v-model="searchFrom.user" placeholder="类型"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-select v-model="searchFrom.region" placeholder="活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
+          <el-input v-model="searchFrom.user" placeholder="标签"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input v-model="searchFrom.user" placeholder="审批人"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-select v-model="searchFrom.region" placeholder="活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="searchFrom.user" placeholder="审批人"></el-input>
+          <el-input v-model="searchFrom.user" placeholder="父级"></el-input>
         </el-form-item>
       </el-form>
     </search-tem>
@@ -65,55 +53,41 @@
       return {
         columnsTitle: [
           {
-            key: 'username',
-            title: '姓名',
+            key: 'label',
+            title: '标签',
             width: '180'
           },
           {
-            key: 'age',
-            title: '年龄',
-            width: '180',
-            unit: '岁',
-            searchFilters: [
-              { text: '> 20', value: 20 },
-              { text: '> 50', value: 50 }
-            ]
+            key: 'key',
+            title: '键',
+            width: '180'
           },
-          // renderHeader 用法
-          // renderContent 用法
-          // {
-          //   key: 'age',
-          //   title: 'test',
-          //   width: '180',
-          //   searchFilters: [
-          //     { text: 'test1', value: 11 },
-          //     { text: 'test2', value: 22 }
-          //   ],
-          //   renderHeader: (h, params) => {
-          //     return h('span', [h('span', params.column.label), this.iconTooltip(h, '提示')]);
-          //   },
-          //   render: (h, params) => {
-          //     return h('div', [
-          //       h('el-input', {
-          //         props: { value: params.row.age },
-          //         on: {
-          //           input: (val) => {
-          //             // 通过index找到对应的值 并改变输入值
-          //             this.$set(this.list[params.$index], 'age', val);
-          //           }
-          //         }
-          //       })]);
-          //   }
-          // },
+          {
+            key: 'value',
+            title: '值',
+            width: '180'
+          },
+          {
+            key: 'group',
+            title: '分组',
+            width: '180'
+          },
+          {
+            key: 'childCount',
+            title: '子级数量',
+            width: '180'
+          },
           {
             key: 'createTime',
             title: '创建时间',
+            minWidth: '180',
             filters: 'parseTime'
           },
           {
             title: '操作',
             width: '100',
             align: 'center',
+            fixed: 'right',
             render: (h, params) => {
               return h('div', this.iconBtn(h, params, [
                 { icon: 'edit', t: 'table.edit', handler: this.addOrUpdate },
@@ -122,7 +96,7 @@
             }
           }
         ],
-        importType: 'user'
+        importType: 'dictionary'
       };
     },
     mounted() {
@@ -131,10 +105,8 @@
       _getList() {
         this.loading = true;
         fetchList().then(res => {
-          setTimeout(() => {
-            this.list = res.data.items;
-            this.totalElement = res.data.total;
-          }, 2000);
+          this.list = res.data.items;
+          this.totalElement = res.data.total;
         });
       },
       getFormById(id) {
