@@ -39,6 +39,8 @@ module.exports = {
     }
   },
   externals: {
+    "BMap": "BMap",
+    "BMapLib": "BMapLib"
     // 'echarts': 'echarts'
   },
   module: {

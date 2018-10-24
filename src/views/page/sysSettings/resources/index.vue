@@ -63,7 +63,7 @@
         </el-form>
       </div>
     </div>
-    <el-dialog
+    <el-dialog :close-on-click-modal="false"
       :title="$t('resources.fromTitle.icon')"
       :visible.sync="showDialog"
       width="60%"

@@ -116,5 +116,24 @@ export const asyncRouterMap = [
       }
     ]
   },
+  {
+    path: '/map',
+    component: Layout,
+    meta: {
+      title: 'map',
+      icon: 'icon'
+    },
+    children: [
+      {
+        path: 'map',
+        component: () => import('@/views/page/map/index'),
+        name: 'map',
+        meta: {
+          title: 'map',
+          icon: 'icon'
+        }
+      }
+    ]
+  },
   { path: '*', redirect: '/401', hidden: true }
 ];

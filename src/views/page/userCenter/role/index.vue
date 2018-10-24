@@ -44,6 +44,7 @@
       </el-pagination>
     </div>
     <el-dialog
+      :close-on-click-modal="false"
       :title="diaTitle"
       :visible.sync="diaVisible"
       :width="diaWidth"
