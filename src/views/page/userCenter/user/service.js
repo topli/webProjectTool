@@ -1,9 +1,5 @@
-import request from '@/libs/utils/request';
+import http from '@/libs/utils/http';
 
-export function fetchList(query) {
-  return request({
-    url: '/user/list',
-    method: 'get',
-    params: query
-  });
-}
+export const fetchList = (query) => http('get /user/list', { params: query });
+
+export const addData = (data) => http('post /user/list', { params: { a: 1 }, data });

@@ -61,15 +61,15 @@
     created() {
       setTimeout(() => {
         this.visible = true;
+        this.$nextTick(() => {
+          this.getTableHeight();
+        });
       }, 200);
       window.addEventListener('resize', () => {
         this.getTableHeight();
       });
     },
     mounted() {
-      this.$nextTick(() => {
-        this.getTableHeight();
-      });
     },
     computed: {
       showTable() {
@@ -84,7 +84,7 @@
     },
     methods: {
       getTableHeight() {
-        this.tableHeight = document.body.clientHeight - 220;
+        this.tableHeight = document.body.clientHeight - this.$el.offsetTop - 120; // 120 (表头 + 分页 高度)
       },
       label(col) {
         return col.title + (col.unit ? '(' + col.unit + ')' : '');

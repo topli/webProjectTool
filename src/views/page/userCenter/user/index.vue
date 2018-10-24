@@ -130,7 +130,7 @@
     methods: {
       _getList() {
         this.loading = true;
-        fetchList().then(res => {
+        fetchList({ pageNo: 1, pageSize: 10 }).then(res => {
           setTimeout(() => {
             this.list = res.data.items;
             this.totalElement = res.data.total;

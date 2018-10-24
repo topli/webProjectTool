@@ -25,9 +25,13 @@
 <style scoped>
   .app-main {
     /*84 = navbar + tags-view = 50 +34 */
-    min-height: calc(100vh - 84px);
-    position: relative;
-    overflow: hidden;
+    /*min-height: calc(100vh - 51px);*/
+    /*position: relative;*/
+    height: calc(100vh - 51px);;
+    width: 100%;
+    position: absolute;
+    top: 51px;
+    overflow-x: hidden;
   }
 </style>
 

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  // import { fetchList } from './service';
+  import { addData } from './service';
 
   export default {
     props: {
@@ -52,14 +52,13 @@
       },
       // 提交按钮
       submit() {
-        this.$store.dispatch('setAL', true);
-        setTimeout(() => {
-          console.log(this.file);
+        addData({ id: 1, name: 'aaa' }).then(() => {
           this.$message.success('成功');
-          this.$store.dispatch('setAL', false);
           // 执行操作后隐藏弹出框
           this.cancel();
-        }, 3000);
+        }).catch(error => {
+          console.log(error);
+        });
       }
     },
     watch: {

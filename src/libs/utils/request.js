@@ -16,6 +16,8 @@ service.interceptors.request.use(config => {
     // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
     config.headers['X-Token'] = getToken();
   }
+  // set loading
+  store.dispatch('setAL', true);
   return config;
 }, error => {
   // Do something with request error
@@ -25,7 +27,12 @@ service.interceptors.request.use(config => {
 
 // respone interceptor
 service.interceptors.response.use(
-  response => response,
+  response => {
+    // set loading
+    console.log('sueecss');
+    store.dispatch('setAL', false);
+    return response;
+  },
   /**
    * 下面的注释为通过在response里，自定义code来标示请求状态
    * 当code返回如下情况则说明权限有问题，登出并返回到登录页
@@ -60,6 +67,8 @@ service.interceptors.response.use(
   //   }
   //  },
   error => {
+    // set loading
+    store.dispatch('setAL', false);
     console.log('err' + error); // for debug
     Message({
       message: error.message,
