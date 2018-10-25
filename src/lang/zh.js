@@ -63,7 +63,8 @@ export default {
     resources: '资源管理',
     dictionary: '字典管理',
     orgManage: '组织管理',
-    roleManage: '权限管理'
+    roleManage: '权限管理',
+    map: '地图'
   },
   navbar: {
     logOut: '退出登录',
