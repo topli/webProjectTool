@@ -176,12 +176,16 @@
       handleCheckChange() {
       },
       handleClickOutside() {
+        if (!this.visible) return;
         this.visible = false;
         this.checkedKeys = this.$refs.tree.getCheckedKeys();
         const inputStr = [];
+        const inputvalue = [];
         this.$refs.tree.getCheckedNodes().forEach((item) => {
           inputStr.push(item.label);
+          inputvalue.push(item.id);
         });
+        this.$emit('input', inputvalue);
         this.checkedStr = inputStr.toString();
       },
       filterTree(value, data) {

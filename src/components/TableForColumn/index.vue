@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <el-table
-      v-if="showTable"
+      v-loading="loading"
       :data="data"
       border
       @selection-change="handleSelectionChange"
@@ -48,7 +48,7 @@
     components: { renderColumn },
     data () {
       return {
-        visible: false,
+        // visible: false,
         tableHeight: 0
       };
     },
@@ -60,7 +60,7 @@
     },
     created() {
       setTimeout(() => {
-        this.visible = true;
+        // this.visible = true;
         this.$nextTick(() => {
           this.getTableHeight();
         });
@@ -72,9 +72,12 @@
     mounted() {
     },
     computed: {
-      showTable() {
-        return this.data.length > 0 || this.visible;
+      loading() {
+        return !this.data.length;
       },
+      // showTable() {
+      //   return this.data.length > 0 || this.visible;
+      // },
       height() {
         if (this.tableHeight < 220) {
           return 220;

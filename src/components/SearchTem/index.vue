@@ -60,7 +60,7 @@
     },
     methods: {
       getFormHeight() {
-        if (this.$slots.default[0]) {
+        if (this.$slots.default && this.$slots.default[0]) {
           this.formHeight = this.$slots.default[0].elm.clientHeight;
         } else {
           this.formHeight = 58;
