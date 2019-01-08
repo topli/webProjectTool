@@ -40,7 +40,8 @@ module.exports = {
   },
   externals: {
     "BMap": "BMap",
-    "BMapLib": "BMapLib"
+    "BMapLib": "BMapLib",
+    "$": "jquery"
     // 'echarts': 'echarts'
   },
   module: {

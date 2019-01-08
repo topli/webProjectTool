@@ -5,7 +5,7 @@ import { getToken } from '@/libs/utils/auth';
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.BASE_API, // api的base_url
+  baseURL: process.env.BASE_API + '/api/', // api的base_url
   timeout: 5000 // request timeout
 });
 
@@ -29,7 +29,6 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     // set loading
-    console.log('sueecss');
     store.dispatch('setAL', false);
     return response;
   },
