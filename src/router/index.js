@@ -135,5 +135,24 @@ export const asyncRouterMap = [
       }
     ]
   },
+  {
+    path: '/showDialog',
+    component: Layout,
+    meta: {
+      title: 'showDialog',
+      icon: 'icon'
+    },
+    children: [
+      {
+        path: 'showDialog',
+        component: () => import('@/views/page/showDialog/index'),
+        name: 'showDialog',
+        meta: {
+          title: 'showDialog',
+          icon: 'icon'
+        }
+      }
+    ]
+  },
   { path: '*', redirect: '/401', hidden: true }
 ];

@@ -17,7 +17,7 @@ export function iconBtn(h, params, iconBtns) {
         },
         on: {
           click() {
-            item.handler && item.handler(params.row);
+            item.handler && item.handler(item.type, params.row);
           }
         }
       }));

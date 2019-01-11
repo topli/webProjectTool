@@ -26,9 +26,9 @@
       </el-form>
     </search-tem>
     <div class="list-el">
-      <el-button type="ghost" @click="addOrUpdate" v-btn-auth="">{{$t('table.add')}}</el-button>
-      <el-button type="ghost" @click="importFun">{{$t('table.import')}}</el-button>
-      <el-button type="ghost" @click="exportFun">{{$t('table.export')}}</el-button>
+      <el-button type="ghost" @click="showDialog('add')" v-btn-auth="">{{$t('table.add')}}</el-button>
+      <el-button type="ghost" @click="showDialog('import')">{{$t('table.import')}}</el-button>
+      <el-button type="ghost" @click="showDialog('export')">{{$t('table.export')}}</el-button>
     </div>
     <div class="list-el">
       <t-for-column selection index :data="list" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-column>
@@ -45,11 +45,11 @@
     </div>
     <el-dialog
       :close-on-click-modal="false"
-      :title="diaTitle"
-      :visible.sync="diaVisible"
-      :width="diaWidth"
+      :title="dialogTitle"
+      :visible.sync="dialogVisible"
+      :width="dialogWidth"
       center>
-      <component :is="diaCurrentPage" v-if="diaVisible" ref="dialogBox" :data="dialogData"></component>
+      <component :is="dialogCurrentPage" v-if="dialogVisible" ref="dialogBox" :data="dialogData"></component>
     </el-dialog>
   </div>
 </template>
@@ -58,10 +58,11 @@
   import { fetchList } from './service';
   import addOrUpdate from './addOrUpdate';
   import list from '@/libs/mixins/list';
+  import dialog from '@/libs/mixins/dialog';
 
   export default {
     components: { addOrUpdate },
-    mixins: [list],
+    mixins: [list, dialog],
     data() {
       return {
         columnsTitle: [
@@ -117,8 +118,8 @@
             align: 'center',
             render: (h, params) => {
               return h('div', this.iconBtn(h, params, [
-                { icon: 'edit', t: 'table.edit', handler: this.addOrUpdate },
-                { icon: 'delete', t: 'table.delete', handler: this.deleteItem }
+                { icon: 'edit', t: 'table.edit', handler: this.showDialog, type: 'edit' },
+                { icon: 'delete', t: 'table.delete', handler: this.showDialog, type: 'delete' }
               ]));
             }
           }
@@ -138,10 +139,14 @@
           }, 2000);
         });
       },
-      getFormById(id) {
+      getFormById(row) {
+        const id = row.id;
+        this.dialogData = {};
         setTimeout(() => {
           this.list.forEach((item) => {
-            if (item.id === id) this.dialogData = item;
+            if (item.id === id) {
+              this.dialogData = item;
+            }
           });
         }, 1000);
       },

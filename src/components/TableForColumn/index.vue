@@ -6,7 +6,8 @@
       border
       @selection-change="handleSelectionChange"
       style="width: 100%"
-      :height="height">
+      :height="height"
+      @sort-change="sortChange">
       <el-table-column
         v-if="selection"
         fixed
@@ -31,6 +32,9 @@
           :minWidth="col.minWidth || null"
           :renderHeader="col.renderHeader"
           :filters="col.searchFilters"
+          :filter-method="col.filterMethod"
+          :sortable="col.sortable"
+          :sort-method="col.sortMethod"
           filter-placement="bottom">
           <template slot-scope="scope">
             <render-column :renderContent="col.render" :scope="scope" :prop="col.key"
@@ -56,7 +60,8 @@
       selection: { type: Boolean, default: false },
       index: { type: Boolean, default: false },
       data: { type: Array, required: true },
-      columnsTitle: { type: Array, required: true }
+      columnsTitle: { type: Array, required: true },
+      sortChange: { type: Function, default: function () {} }
     },
     created() {
       setTimeout(() => {

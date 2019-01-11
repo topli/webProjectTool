@@ -12,7 +12,7 @@
           <el-input v-model="form.height"></el-input>
         </el-form-item>
         <el-form-item label="所属组织">
-          <org-tree></org-tree>
+          <org-tree v-model="form.org"></org-tree>
         </el-form-item>
         <el-form-item label="启用/禁用">
           <el-switch v-model="form.delivery"></el-switch>
@@ -20,8 +20,8 @@
       </el-form>
     </div>
     <div class="aou-footer">
-      <el-button @click="cancel">取消</el-button>
       <el-button @click="submit" type="primary">确定</el-button>
+      <el-button @click="cancel">取消</el-button>
     </div>
   </div>
 </template>
@@ -39,6 +39,8 @@
         loading: true
       };
     },
+    created() {
+    },
     mounted() {},
     computed: {
       actionLoading() {
@@ -48,11 +50,11 @@
     methods: {
       // 取消按钮
       cancel() {
-        this.$parent.$parent.diaVisible = false;
+        this.$parent.$parent.dialogVisible = false;
       },
       // 提交按钮
       submit() {
-        addData({ id: 1, name: 'aaa' }).then(() => {
+        addData(this.form).then(() => {
           this.$message.success('成功');
           // 执行操作后隐藏弹出框
           this.cancel();

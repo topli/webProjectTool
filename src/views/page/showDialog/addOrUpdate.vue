@@ -11,6 +11,9 @@
         <el-form-item label="身高">
           <el-input v-model="form.height"></el-input>
         </el-form-item>
+        <el-form-item label="所属组织">
+          <org-tree v-model="form.org"></org-tree>
+        </el-form-item>
         <el-form-item label="启用/禁用">
           <el-switch v-model="form.delivery"></el-switch>
         </el-form-item>
@@ -18,13 +21,13 @@
     </div>
     <div class="aou-footer">
       <el-button @click="submit" type="primary">确定</el-button>
-      <el-button @click="cancel">取消</el-button>
+      <el-button @click="close">取消</el-button>
     </div>
   </div>
 </template>
 
 <script>
-  // import { fetchList } from './service';
+  import { addData } from './service';
 
   export default {
     props: {
@@ -36,6 +39,9 @@
         loading: true
       };
     },
+    created() {
+      this.form = this.data;
+    },
     mounted() {},
     computed: {
       actionLoading() {
@@ -44,22 +50,23 @@
     },
     methods: {
       // 取消按钮
-      cancel() {
-        this.$parent.$parent.dialogVisible = false;
+      close() {
+        this.$parent.$parent.visible = false;
       },
       // 提交按钮
       submit() {
-        this.$store.dispatch('setAL', true);
-        setTimeout(() => {
+        addData(this.form).then(() => {
           this.$message.success('成功');
-          this.$store.dispatch('setAL', false);
           // 执行操作后隐藏弹出框
-          this.cancel();
-        }, 3000);
+          this.close();
+        }).catch(error => {
+          console.log(error);
+        });
       }
     },
     watch: {
       data: function (val) {
+        console.log(val);
         this.form = val;
       }
     }

@@ -7,7 +7,7 @@
     <div class="search-btn" :style="btnStyle">
       <slot name="btn">
         <div class="btn">
-          <el-button v-if="showMore" type="text" @click="openSearchFun" :icon="toggleFromIcon">更多</el-button>
+          <el-button v-if="showMore" type="text" @click="openSearchFun" :icon="toggleFromIcon">{{text}}</el-button>
           <el-button type="primary" @click="onSearch">搜索</el-button>
         </div>
       </slot>
@@ -56,6 +56,9 @@
       },
       toggleFromIcon() {
         return this.toggleOpen ? 'el-icon-arrow-up' : 'el-icon-arrow-down';
+      },
+      text() {
+        return this.toggleOpen ? '收起' : '更多';
       }
     },
     methods: {

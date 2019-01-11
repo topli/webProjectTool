@@ -20,7 +20,6 @@ const http = (address, arg, config) => {
     console.error('url不能为空');
     return;
   }
-  console.info('indexOf address success');
   const configs = {
     url: url,
     method: method,
