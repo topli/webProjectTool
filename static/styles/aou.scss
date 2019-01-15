@@ -1,5 +1,17 @@
 .aou-template {
-  padding: 0
+  padding: 0;
+  .el-header {
+    padding: 0
+  }
+  .el-main {
+    padding: 0
+  }
+  .el-footer {
+    padding: 0
+  }
+  .el-form-item__content{
+    min-width: 204px;
+  }
 }
 .aou-body {
   padding: 0;

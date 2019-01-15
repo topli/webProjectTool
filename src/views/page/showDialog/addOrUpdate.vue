@@ -27,6 +27,7 @@
 </template>
 
 <script>
+  import 'static/styles/aou.scss'; // 新增弹窗样式
   import { addData } from './service';
 
   export default {
@@ -51,7 +52,9 @@
     methods: {
       // 取消按钮
       close() {
-        this.$parent.$parent.visible = false;
+        // 隐藏方法
+        // this.$parent.$parent.closeDialog();
+        this.$dialog.closeAll();
       },
       // 提交按钮
       submit() {
@@ -66,7 +69,6 @@
     },
     watch: {
       data: function (val) {
-        console.log(val);
         this.form = val;
       }
     }
@@ -74,5 +76,4 @@
 </script>
 
 <style scoped>
-
 </style>

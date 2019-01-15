@@ -4,7 +4,7 @@
     :title="title"
     :visible.sync="visible"
     :width="width"
-    @close="closeDialog"
+    @close="close"
     center>
     <component :is="component" v-if="visible" ref="component" :data="componentData"></component>
   </el-dialog>
@@ -20,12 +20,16 @@
       };
     },
     created() {
+      console.log(1);
     },
     methods: {
-      closeDialog() {
-        console.log('close');
+      close() {
+        this.visible = false;
         this.onClose();
       }
+    },
+    beforeDestroy() {
+      console.log('beforeDestroy');
     }
   };
 </script>

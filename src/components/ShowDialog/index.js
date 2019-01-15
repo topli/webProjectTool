@@ -17,7 +17,7 @@ const Message = function(component, options) {
     Message.close(id, userOnClose);
   };
   options.component = component.name || 'component';
-  options.componentData = options.data;
+  options.componentData = options.data || {};
   instance = new MessageConstructor({
     data: options
   });
