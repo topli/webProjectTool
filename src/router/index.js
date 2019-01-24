@@ -1,7 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import { fileDisplay } from './getFiles';
-
 // fileDisplay();
 Vue.use(Router);
 
@@ -53,106 +51,121 @@ export default new Router({
   routes: constantRouterMap
 });
 
-export const asyncRouterMap = [
-  {
-    path: '/userCenter',
-    component: Layout,
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: 'userCenter',
-      icon: 'user'
-    },
-    children: [
-      {
-        path: 'userManage',
-        component: () => import('@/views/page/userCenter/user/index'),
-        name: 'userManage',
-        meta: {
-          title: 'userManage'
-        }
-      },
-      {
-        path: 'orgManage',
-        component: () => import('@/views/page/userCenter/org/index'),
-        name: 'orgManage',
-        meta: {
-          title: 'orgManage'
-        }
-      },
-      {
-        path: 'roleManage',
-        component: () => import('@/views/page/userCenter/role/index'),
-        name: 'roleManage',
-        meta: {
-          title: 'roleManage'
-        }
-      }
-    ]
-  },
-  {
-    path: '/sysSettings',
-    component: Layout,
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: 'sysSettings',
-      icon: 'settings'
-    },
-    children: [
-      {
-        path: 'resources',
-        component: () => import('@/views/page/sysSettings/resources/index'),
-        name: 'resources',
-        meta: {
-          title: 'resources'
-        }
-      },
-      {
-        path: 'dictionary',
-        component: () => import('@/views/page/sysSettings/dictionary/index'),
-        name: 'dictionary',
-        meta: {
-          title: 'dictionary'
-        }
-      }
-    ]
-  },
-  {
-    path: '/map',
-    component: Layout,
-    meta: {
-      title: 'map',
-      icon: 'icon'
-    },
-    children: [
-      {
-        path: 'map',
-        component: () => import('@/views/page/map/index'),
-        name: 'map',
-        meta: {
-          title: 'map',
-          icon: 'icon'
-        }
-      }
-    ]
-  },
-  {
-    path: '/showDialog',
-    component: Layout,
-    meta: {
-      title: 'showDialog',
-      icon: 'icon'
-    },
-    children: [
-      {
-        path: 'showDialog',
-        component: () => import('@/views/page/showDialog/index'),
-        name: 'showDialog',
-        meta: {
-          title: 'showDialog',
-          icon: 'icon'
-        }
-      }
-    ]
-  },
-  { path: '*', redirect: '/401', hidden: true }
-];
+const asyncRouterMap = new Map();
+const requireAll = requireContext => requireContext.keys().map(requireContext);
+const context = require.context('../views/page/', true, /index\.vue$/); // 找到每个模块的入口文件
+
+const iconMap = requireAll(context);
+iconMap.forEach(item => {
+  let file = item.default.__file;
+  file = file.replace(/\\/g, '/').replace('src/', '').replace('.vue', '');
+  const ar = file.split('/');
+  const name = ar[ar.length - 2];
+  asyncRouterMap.set(name, { component: file });
+});
+asyncRouterMap.set('all', { path: '*', redirect: '/401', hidden: true });
+export { asyncRouterMap };
+
+// export const asyncRouterMap = [
+//   {
+//     path: '/userCenter',
+//     component: Layout,
+//     alwaysShow: true, // will always show the root menu
+//     meta: {
+//       title: 'userCenter',
+//       icon: 'user'
+//     },
+//     children: [
+//       {
+//         path: 'userManage',
+//         component: () => import('@/views/page/userCenter/user/index'),
+//         name: 'userManage',
+//         meta: {
+//           title: 'userManage'
+//         }
+//       },
+//       {
+//         path: 'orgManage',
+//         component: () => import('@/views/page/userCenter/org/index'),
+//         name: 'orgManage',
+//         meta: {
+//           title: 'orgManage'
+//         }
+//       },
+//       {
+//         path: 'roleManage',
+//         component: () => import('@/views/page/userCenter/role/index'),
+//         name: 'roleManage',
+//         meta: {
+//           title: 'roleManage'
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     path: '/sysSettings',
+//     component: Layout,
+//     alwaysShow: true, // will always show the root menu
+//     meta: {
+//       title: 'sysSettings',
+//       icon: 'settings'
+//     },
+//     children: [
+//       {
+//         path: 'resources',
+//         component: () => import('@/views/page/sysSettings/resources/index'),
+//         name: 'resources',
+//         meta: {
+//           title: 'resources'
+//         }
+//       },
+//       {
+//         path: 'dictionary',
+//         component: () => import('@/views/page/sysSettings/dictionary/index'),
+//         name: 'dictionary',
+//         meta: {
+//           title: 'dictionary'
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     path: '/map',
+//     component: Layout,
+//     meta: {
+//       title: 'map',
+//       icon: 'icon'
+//     },
+//     children: [
+//       {
+//         path: 'map',
+//         component: () => import('@/views/page/map/index'),
+//         name: 'map',
+//         meta: {
+//           title: 'map',
+//           icon: 'icon'
+//         }
+//       }
+//     ]
+//   },
+//   {
+//     path: '/showDialog',
+//     component: Layout,
+//     meta: {
+//       title: 'showDialog',
+//       icon: 'icon'
+//     },
+//     children: [
+//       {
+//         path: 'showDialog',
+//         component: () => import('@/views/page/showDialog/index'),
+//         name: 'showDialog',
+//         meta: {
+//           title: 'showDialog',
+//           icon: 'icon'
+//         }
+//       }
+//     ]
+//   },
+//   { path: '*', redirect: '/401', hidden: true }
+// ];

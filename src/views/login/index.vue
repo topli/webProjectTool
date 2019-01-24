@@ -86,7 +86,12 @@
             this.loading = true;
             this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
               this.loading = false;
-              this.$router.push({ path: '/' });
+              this.$store.dispatch('GetUserInfo').then(res => {
+                this.$store.dispatch('GenerateRoutes', { menuList: this.$store.getters.menuList }).then(() => { // 根据roles权限生成可访问的路由表
+                  this.$router.addRoutes(this.$store.getters.addRouters); // 动态添加可访问路由表
+                  this.$router.push({ path: '/' });
+                });
+              });
             }).catch(() => {
               this.loading = false;
             });

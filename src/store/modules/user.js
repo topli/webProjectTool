@@ -1,5 +1,6 @@
 import { loginByUsername, logout, getUserInfo } from '@/api/login';
 import { getToken, setToken, removeToken } from '@/libs/utils/auth';
+import { setLocalStorage, getLocalStorage, removeLocalStorage } from '@/libs/utils';
 
 const user = {
   state: {
@@ -10,6 +11,7 @@ const user = {
     name: '',
     avatar: '',
     introduction: '',
+    menuList: getLocalStorage('menuList'),
     roles: [],
     btnRoles: [],
     setting: {
@@ -44,6 +46,10 @@ const user = {
     },
     SET_BTN_ROLES: (state, btnRoles) => {
       state.btnRoles = btnRoles;
+    },
+    SET_MENU: (state, menuList) => {
+      state.menuList = menuList;
+      setLocalStorage('menuList', JSON.stringify(menuList));
     }
   },
 
@@ -71,7 +77,117 @@ const user = {
             reject('error');
           }
           const data = response.data;
-
+          data.menuList = [
+            {
+              id: 1,
+              path: '/userCenter',
+              alwaysShow: true, // will always show the root menu
+              name: 'userCenter',
+              label: '用户中心',
+              show: true,
+              parentId: 9999,
+              parentLabel: '顶级机构',
+              parentType: 'org',
+              type: 1,
+              meta: {
+                title: 'userCenter',
+                icon: 'user'
+              },
+              children: [
+                {
+                  path: 'user',
+                  name: 'user',
+                  show: true,
+                  parentId: 1,
+                  parentLabel: '用户中心',
+                  meta: {
+                    title: 'user',
+                    role: ['add', 'edit', 'import', 'export'] // 按钮权限
+                  }
+                },
+                {
+                  path: 'org',
+                  name: 'org',
+                  show: true,
+                  parentId: 1,
+                  parentLabel: '用户中心',
+                  meta: {
+                    title: 'org',
+                    role: ['add', 'edit', 'import', 'export'] // 按钮权限
+                  }
+                },
+                {
+                  path: 'role',
+                  name: 'role',
+                  show: true,
+                  parentId: 1,
+                  parentLabel: '用户中心',
+                  meta: {
+                    title: 'role',
+                    role: ['add', 'edit', 'import', 'export'] // 按钮权限
+                  }
+                }
+              ]
+            },
+            {
+              path: '/sysSettings',
+              alwaysShow: true, // will always show the root menu
+              meta: {
+                title: 'sysSettings',
+                icon: 'settings'
+              },
+              children: [
+                {
+                  path: 'resources',
+                  name: 'resources',
+                  meta: {
+                    title: 'resources'
+                  }
+                },
+                {
+                  path: 'dictionary',
+                  name: 'dictionary',
+                  meta: {
+                    title: 'dictionary'
+                  }
+                }
+              ]
+            },
+            {
+              path: '/map',
+              meta: {
+                title: 'map',
+                icon: 'icon'
+              },
+              children: [
+                {
+                  path: 'map',
+                  name: 'map',
+                  meta: {
+                    title: 'map',
+                    icon: 'icon'
+                  }
+                }
+              ]
+            },
+            {
+              path: '/showDialog',
+              meta: {
+                title: 'showDialog',
+                icon: 'icon'
+              },
+              children: [
+                {
+                  path: 'showDialog',
+                  name: 'showDialog',
+                  meta: {
+                    title: 'showDialog',
+                    icon: 'icon'
+                  }
+                }
+              ]
+            }
+          ];
           if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.roles);
           } else {
@@ -81,6 +197,7 @@ const user = {
           commit('SET_NAME', data.name);
           commit('SET_AVATAR', data.avatar);
           commit('SET_INTRODUCTION', data.introduction);
+          commit('SET_MENU', data.menuList);
           resolve(response);
         }).catch(error => {
           reject(error);
@@ -108,6 +225,7 @@ const user = {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '');
           commit('SET_ROLES', []);
+          removeLocalStorage('menuList');
           removeToken();
           resolve();
         }).catch(error => {
@@ -120,6 +238,7 @@ const user = {
     FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '');
+        removeLocalStorage('menuList');
         removeToken();
         resolve();
       });

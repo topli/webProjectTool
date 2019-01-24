@@ -13,11 +13,11 @@ const http = (address, arg, config) => {
   const method = address.split(' ')[0];
   const url = address.split(' ')[1];
   if (options.indexOf(method.toUpperCase()) === -1) {
-    console.error('请指定请求方法GET , HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE');
+    console.error('the method type is GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE');
     return;
   }
   if (!url) {
-    console.error('url不能为空');
+    console.error('ur is not null');
     return;
   }
   const configs = {
