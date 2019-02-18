@@ -1,14 +1,6 @@
-export function setLocalStorage (key, value) {
-  window.localStorage.setItem(key, value);
-}
-
-export function getLocalStorage (key) {
-  return window.localStorage.getItem(key);
-}
-
-export function removeLocalStorage (key) {
-  window.localStorage.removeItem(key);
-}
+/**
+ * Created by jiachenpan on 16/11/18.
+ */
 
 export function parseTime(time, cFormat) {
   if (arguments.length === 0) {
@@ -81,6 +73,11 @@ export function getQueryObject(url) {
   return obj;
 }
 
+/**
+ *get getByteLen
+ * @param {Sting} val input value
+ * @returns {number} output value
+ */
 export function getByteLen(val) {
   let len = 0;
   for (let i = 0; i < val.length; i++) {
