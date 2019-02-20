@@ -53,9 +53,10 @@ const user = {
       const username = userInfo.username.trim();
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password).then(response => {
+          // 登录 获取用户信息
           const data = response.data;
-          commit('SET_TOKEN', data.token);
-          setToken(response.data.token);
+          commit('SET_TOKEN', data.token); // set store
+          setToken(response.data.token); // set Cookies
           resolve();
         }).catch(error => {
           reject(error);

@@ -9,9 +9,14 @@
   import test from './test';
   import addOrUpdate from './addOrUpdate.vue';
   export default {
+    data () {
+      return {
+        importType: 'showDialog'
+      };
+    },
     methods: {
       showDialog() {
-        this.$dialog(test, { title: '新增' });
+        this.$dialog(test, { title: '导出' });
       },
       showAdd() {
         this.$dialog(addOrUpdate, { title: '编辑', data: { id: 1 }});

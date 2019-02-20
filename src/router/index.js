@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import { fileDisplay } from './getFiles';
 
-// fileDisplay();
 Vue.use(Router);
 
 /* Layout */
@@ -28,7 +26,7 @@ import Layout from '@/views/layout/Layout';
  **/
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
-  { path: '/authredirect', component: () => import('@/views/login/authredirect'), hidden: true },
+  // { path: '/authredirect', component: () => import('@/views/login/authredirect'), hidden: true },
   { path: '/404', component: () => import('@/views/errorPage/404'), hidden: true },
   { path: '/401', component: () => import('@/views/errorPage/401'), hidden: true },
   {
