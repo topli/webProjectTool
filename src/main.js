@@ -15,7 +15,6 @@ import i18n from './lang'; // Internationalization
 import './icons'; // icon
 import './errorLog';// error log
 import './permission'; // permission control
-import './libs/mock'; // simulation data
 
 import * as filters from './libs/filters'; // global filters
 

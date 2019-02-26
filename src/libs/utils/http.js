@@ -1,17 +1,19 @@
 import request from '@/libs/utils/request';
 
 const options = ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE'];
-const http = (address, arg, config) => {
+const http = (requestUrl, arg, config) => {
   let params = null;
   let data = null;
-  if (arg.params) {
-    params = arg.params;
+  if (arg) {
+    if (arg.params) {
+      params = arg.params;
+    }
+    if (arg.data) {
+      data = arg.data;
+    }
   }
-  if (arg.data) {
-    data = arg.data;
-  }
-  const method = address.split(' ')[0];
-  const url = address.split(' ')[1];
+  const method = requestUrl.split(' ')[0];
+  const url = requestUrl.split(' ')[1];
   if (options.indexOf(method.toUpperCase()) === -1) {
     console.error('methods must is for [GET , HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE]');
     return;

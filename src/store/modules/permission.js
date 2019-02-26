@@ -6,8 +6,8 @@ import { asyncRouterMap, constantRouterMap } from '@/router';
  * @param route
  */
 function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.indexOf(role) >= 0);
+  if (route) {
+    return roles.some(role => route === role);
   } else {
     return true;
   }
@@ -18,12 +18,19 @@ function hasPermission(roles, route) {
  * @param asyncRouterMap
  * @param roles
  */
-function filterAsyncRouter(asyncRouterMap, roles) {
-  const accessedRouters = asyncRouterMap.filter(route => {
-    if (hasPermission(roles, route)) {
-      if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, roles);
-      }
+function filterAsyncRouter(asyncRouterMap, roles, level = 0) {
+  level += 1;
+  const accessedRouters = asyncRouterMap && asyncRouterMap.filter(route => {
+    // 允许的菜单深度
+    if (level > permission.state.level) {
+      return false;
+    }
+    // 如果有子级往下一直循环
+    if (route.children && route.children.length) {
+      route.children = filterAsyncRouter(route.children, roles, level);
+      if (!route.children.length) return false;
+      return true;
+    } else if (hasPermission(roles, route.name)) {
       return true;
     }
     return false;
@@ -34,7 +41,8 @@ function filterAsyncRouter(asyncRouterMap, roles) {
 const permission = {
   state: {
     routers: constantRouterMap,
-    addRouters: []
+    addRouters: [],
+    level: 3
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
@@ -46,12 +54,8 @@ const permission = {
     GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
         const { roles } = data;
-        let accessedRouters;
-        if (roles.indexOf('admin') >= 0) {
-          accessedRouters = asyncRouterMap;
-        } else {
-          accessedRouters = filterAsyncRouter(asyncRouterMap, roles);
-        }
+        const  accessedRouters = filterAsyncRouter(asyncRouterMap, roles);
+        console.log(accessedRouters);
         commit('SET_ROUTERS', accessedRouters);
         resolve();
       });

@@ -34,7 +34,15 @@
 <script>
   import { isvalidUsername } from '@/libs/utils/validate';
   import LangSelect from '@/components/LangSelect';
+  import { login } from './service';
+  import MD5 from 'md5';
 
+  /**
+   * MD5加密
+   */
+  const md5 = (str) => {
+    return MD5(MD5(MD5(str)));
+  };
   export default {
     components: { LangSelect },
     name: 'login',
@@ -56,15 +64,19 @@
       return {
         loginForm: {
           username: 'admin',
-          password: '1111111'
+          password: 'Admin123'
         },
         loginRules: {
           username: [{ required: true, trigger: 'blur', validator: validateUsername }],
           password: [{ required: true, trigger: 'blur', validator: validatePassword }]
         },
-        passwordType: 'password',
-        loading: false
+        passwordType: 'password'
       };
+    },
+    computed: {
+      loading () {
+        return this.$store.state.app.actionLoading;
+      }
     },
     methods: {
       showPwd() {
@@ -77,13 +89,26 @@
       handleLogin() {
         this.$refs.loginForm.validate(valid => {
           if (valid) {
-            this.loading = true;
-            this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
-              this.loading = false;
-              this.$router.push({ path: '/' });
-            }).catch(() => {
-              this.loading = false;
+            const params = {
+              username: this.loginForm.username,
+              password: md5(this.loginForm.password)
+            };
+            login(params).then(res => {
+              if (res.code === 200) {
+                this.$message.success('登录成功');
+                this.$store.dispatch('loginIn', res.data);
+                // todo 获取用户信息（权限菜单、按钮）
+                this.$store.dispatch('getUserInfo').then(() => {
+                  this.$router.push({ path: '/' });
+                });
+              }
             });
+            // this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
+            //   this.loading = false;
+            //   this.$router.push({ path: '/' });
+            // }).catch(() => {
+            //   this.loading = false;
+            // });
           } else {
             console.log('error submit!!');
             return false;

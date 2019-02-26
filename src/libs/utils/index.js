@@ -271,3 +271,40 @@ export function deepClone(source) {
 export function uniqueArr(arr) {
   return Array.from(new Set(arr));
 }
+
+/** 调用浏览器storage
+ * @param key
+ * @param value
+ * @param boolean
+ */
+export function setStorage (key, value, boolean) {
+  let storageObj = null;
+  if (boolean) {
+    storageObj = window.sessionStorage;
+  } else {
+    storageObj = window.localStorage;
+  }
+  if (Object.prototype.toString.call(value) === '[object Object]' || Object.prototype.toString.call(value) === '[object Array]') {
+    value = JSON.stringify(value);
+  }
+  storageObj.setItem(key, value);
+}
+
+export function getStorage (key, boolean) {
+  let storageObj = null;
+  if (boolean) {
+    storageObj = window.sessionStorage;
+  } else {
+    storageObj = window.localStorage;
+  }
+  return storageObj.getItem(key);
+}
+export function removeStorage (key, boolean) {
+  let storageObj = null;
+  if (boolean) {
+    storageObj = window.sessionStorage;
+  } else {
+    storageObj = window.localStorage;
+  }
+  storageObj.removeItem(key);
+}
