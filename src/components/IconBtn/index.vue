@@ -1,14 +1,20 @@
 <template>
   <!-- IconBtn -->
-  <div @click="clickBtn($event)" class="newIconBtn" :style="styles" v-btn-auth="authCode">
-    <el-tooltip placement="bottom" :content="content" :open-delay="500">
+  <el-tooltip placement="bottom" :content="content" :open-delay="500">
+    <div @click="clickBtn($event)" :class="classs" class="newIconBtn" @mouseenter="mouseEnter" @mouseleave="mouseLeave"
+         :style="styles" v-btn-auth="authCode">
       <svg-icon :icon-class="icon"></svg-icon>
-    </el-tooltip>
-  </div>
+    </div>
+  </el-tooltip>
 </template>
 
 <script>
   export default {
+    data() {
+      return {
+        mouseSelect: false
+      };
+    },
     props: {
       content: String,
       icon: String,
@@ -22,22 +28,36 @@
       authCode: String
     },
     computed: {
+      classs() {
+        if (this.mouseSelect) return 'btn-is-focus';
+        return '';
+      },
       styles() {
-        var style = { fontSize: this.size + 'px', color: this.color };
+        var style = { fontSize: this.size + 'px' };
         return style;
       }
     },
     methods: {
       clickBtn($event) {
         this.$emit('click', $event);
+      },
+      mouseEnter() {
+        this.mouseSelect = true;
+      },
+      mouseLeave() {
+        this.mouseSelect = false;
       }
     }
   };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+  .btn-is-focus {
+    border: 1px solid #b0b0b0 !important;
+  }
+
   .newIconBtn {
-    /*margin-left: 5px;*/
+    margin-left: 5px;
     display: inline-block;
     margin-bottom: 0;
     font-weight: 400;
@@ -47,7 +67,7 @@
     touch-action: manipulation;
     cursor: pointer;
     background-image: none;
-    border: 1px solid transparent;
+    border: 1px solid #f0f0f0;
     white-space: nowrap;
     line-height: 1.5;
     -webkit-user-select: none;

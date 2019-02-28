@@ -65,7 +65,7 @@ const user = {
           if (info.code !== 200) {
             reject('error');
           }
-          const menuList = ['userManage1', 'dictionary', 'orgManage', 'resources'];
+          const menuList = ['userManage', 'dictionary', 'orgManage', 'resources', 'showDialog'];
           // 菜单、按钮权限数据存入localStore
           commit('SET_MENU_LIST', menuList);
           setStorage('menuList', menuList);

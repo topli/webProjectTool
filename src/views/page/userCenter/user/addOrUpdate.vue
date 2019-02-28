@@ -35,13 +35,9 @@
     },
     data() {
       return {
-        form: {},
-        loading: true
+        form: {}
       };
     },
-    created() {
-    },
-    mounted() {},
     computed: {
       actionLoading() {
         return this.$store.getters.actionLoading;
@@ -50,7 +46,7 @@
     methods: {
       // 取消按钮
       cancel() {
-        this.$parent.$parent.dialogVisible = false;
+        this.$dialog.closeAll();
       },
       // 提交按钮
       submit() {

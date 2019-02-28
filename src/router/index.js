@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import routerView from '@/routerView';
+// import routerView from '@/routerView';
 Vue.use(Router);
 
 /* Layout */
@@ -63,29 +63,11 @@ export const asyncRouterMap = [
     children: [
       {
         path: 'userManage',
-        component: routerView,
+        component: () => import('@/views/page/userCenter/user/index'),
         name: 'userManage',
         meta: {
           title: 'userManage'
-        },
-        children: [
-          {
-            path: 'userManage1',
-            component: () => import('@/views/page/userCenter/user/index'),
-            name: 'userManage1',
-            meta: {
-              title: 'userManage1'
-            }
-          },
-          {
-            path: 'dictionary',
-            component: () => import('@/views/page/sysSettings/dictionary/index'),
-            name: 'dictionary',
-            meta: {
-              title: 'dictionary'
-            }
-          }
-        ]
+        }
       },
       {
         path: 'orgManage',

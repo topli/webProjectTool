@@ -5,6 +5,7 @@ import TableForColumn from './TableForColumn';
 import OrgTree from './OrgTree';
 
 import showDialog from './ShowDialog/index.js';
+// import Dialog from './DialogBox/index.js';
 
 const install = function(Vue, options = {}) {
   // 静态方法
@@ -16,6 +17,7 @@ const install = function(Vue, options = {}) {
   Vue.component('TForColumn', TableForColumn);
   Vue.component('OrgTree', OrgTree);
   Vue.prototype.$dialog = showDialog;
+  // Vue.prototype.$dialog = Dialog;
 };
 var components = { install };
 

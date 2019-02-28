@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+    ref="dialogs"
     :close-on-click-modal="false"
     :title="title"
     :visible.sync="visible"
@@ -20,6 +21,7 @@
       };
     },
     created() {
+      console.log(1);
     },
     methods: {
       close() {

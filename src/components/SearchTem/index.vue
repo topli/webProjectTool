@@ -8,7 +8,9 @@
       <slot name="btn">
         <div class="btn">
           <el-button v-if="showMore" type="text" @click="openSearchFun" :icon="toggleFromIcon">{{text}}</el-button>
-          <el-button type="primary" @click="onSearch">搜索</el-button>
+          <el-button type="primary" @click="onSearch" circle>
+            <svg-icon icon-class="search"></svg-icon>
+          </el-button>
         </div>
       </slot>
     </div>

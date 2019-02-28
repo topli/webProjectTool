@@ -14,9 +14,9 @@
       </el-form>
     </search-tem>
     <div class="list-el">
-      <el-button type="ghost" @click="addOrUpdate" v-btn-auth="">{{$t('table.add')}}</el-button>
-      <el-button type="ghost" @click="importFun">{{$t('table.import')}}</el-button>
-      <el-button type="ghost" @click="exportFun">{{$t('table.export')}}</el-button>
+      <icon-btn icon="add" :content="$t('table.add')" @click="addData"></icon-btn>
+      <!--<icon-btn icon="excel" :content="$t('table.import')" @click="importFun"></icon-btn>-->
+      <!--<icon-btn icon="add" :content="$t('table.export')" @click="exportFun"></icon-btn>-->
     </div>
     <div class="list-el">
       <t-for-column selection index :data="list" :sort-change="sortChange" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-column>
@@ -31,27 +31,17 @@
         :total="totalElement">
       </el-pagination>
     </div>
-    <el-dialog
-      :close-on-click-modal="false"
-      :title="dialogTitle"
-      :visible.sync="dialogVisible"
-      :width="dialogWidth"
-      center>
-      <component :is="dialogCurrentPage" v-if="dialogVisible" ref="dialogBox" :data="dialogData"></component>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-  import { fetchList } from './service';
+  // import { fetchList } from './service';
   // import { iconTooltip } from '@/libs/utils/table';
   import addOrUpdate from './addOrUpdate';
   import list from '@/libs/mixins/list';
-  import dialog from '@/libs/mixins/dialog';
 
   export default {
-    components: { addOrUpdate },
-    mixins: [list, dialog],
+    mixins: [list],
     data() {
       return {
         columnsTitle: [
@@ -125,12 +115,33 @@
       },
       _getList() {
         this.loading = true;
-        fetchList(this.searchData).then(res => {
-          setTimeout(() => {
-            this.list = res.data.items;
-            this.totalElement = res.data.total;
-          }, 2000);
-        });
+        // fetchList(this.searchData).then(res => {
+        //   setTimeout(() => {
+        //     this.list = res.data.items;
+        //     this.totalElement = res.data.total;
+        //   }, 2000);
+        // });
+        setTimeout(() => {
+          this.list = [
+            { username: '1111111111111111111111111111111111133333333333333333333333332222222222222111', age: 23 },
+            { username: '222', age: 25 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '3333', age: 24 },
+            { username: '11111', age: 23 }
+          ];
+          this.totalElement = 1;
+        }, 2000);
       },
       // this.addOrUpdate方法会调用此方法 在编辑时获取当前数据
       getFormById(id) {
@@ -139,11 +150,14 @@
             if (item.id === id) this.dialogData = item;
           });
         }, 1000);
+      },
+      addData() {
+        this.$dialog(addOrUpdate, { title: '新增', data: { username: '111' }});
+        // this.$dialog(addOrUpdate, { title: '新增', data: { username: '111' }});
       }
     }
   };
 </script>
 
 <style scoped>
-
 </style>
