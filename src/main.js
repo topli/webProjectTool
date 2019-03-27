@@ -22,7 +22,7 @@ import directive from './libs/directive'; // global directive
 
 import './components'; // global components
 Vue.use(Element, {
-  size: 'medium', // set element-ui default size
+  size: 'small', // set element-ui default size ['small', 'medium']
   i18n: (key, value) => i18n.t(key, value)
 });
 

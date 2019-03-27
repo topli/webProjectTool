@@ -26,12 +26,12 @@
       </el-form>
     </search-tem>
     <div class="list-el">
-      <el-button type="ghost" @click="showDialog('add')" v-btn-auth="">{{$t('table.add')}}</el-button>
-      <el-button type="ghost" @click="showDialog('import')">{{$t('table.import')}}</el-button>
-      <el-button type="ghost" @click="showDialog('export')">{{$t('table.export')}}</el-button>
+      <el-button type="ghost" @click="dialogBox('add')" v-btn-auth="">{{$t('table.add')}}</el-button>
+      <el-button type="ghost" @click="dialogBox('import')">{{$t('table.import')}}</el-button>
+      <el-button type="ghost" @click="dialogBox('export')">{{$t('table.export')}}</el-button>
     </div>
     <div class="list-el">
-      <t-for-column selection index :data="list" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-column>
+      <t-for-col selection index :data="list" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-col>
       <el-pagination
         class="list-page"
         @size-change="handleSizeChange"
@@ -118,8 +118,8 @@
             align: 'center',
             render: (h, params) => {
               return h('div', this.iconBtn(h, params, [
-                { icon: 'edit', t: 'table.edit', handler: this.showDialog, type: 'edit' },
-                { icon: 'delete', t: 'table.delete', handler: this.showDialog, type: 'delete' }
+                { icon: 'edit', t: 'table.edit', handler: this.dialogBox, type: 'edit' },
+                { icon: 'delete', t: 'table.delete', handler: this.dialogBox, type: 'delete' }
               ]));
             }
           }

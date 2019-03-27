@@ -103,7 +103,7 @@
             }]
         }];
       return {
-        showDialog: false,
+        dialogBox: false,
         iconsMap: [],
         treeData: JSON.parse(JSON.stringify(data)),
         form: {
@@ -202,7 +202,7 @@
           ]);
       },
       handleClose() {
-        this.showDialog = false;
+        this.dialogBox = false;
       },
       getCurrentNode(node) {
         this.form = node;

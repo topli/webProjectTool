@@ -19,7 +19,7 @@
       <el-button type="ghost" @click="exportFun">{{$t('table.export')}}</el-button>
     </div>
     <div class="list-el">
-      <t-for-column selection index :data="list" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-column>
+      <t-for-col selection index :data="list" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-col>
       <el-pagination
         class="list-page"
         @size-change="handleSizeChange"

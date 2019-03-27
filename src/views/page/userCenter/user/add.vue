@@ -21,13 +21,12 @@
     </div>
     <div class="aou-footer">
       <el-button @click="submit" type="primary">确定</el-button>
-      <el-button @click="close">取消</el-button>
+      <el-button @click="onClose">取消</el-button>
     </div>
   </div>
 </template>
 
 <script>
-  import 'static/styles/aou.scss'; // 新增弹窗样式
   import { addData } from './service';
 
   export default {
@@ -36,44 +35,29 @@
     },
     data() {
       return {
-        form: {},
-        loading: true
+        form: this.data || {}
       };
     },
-    created() {
-      this.form = this.data;
-    },
-    mounted() {},
     computed: {
       actionLoading() {
         return this.$store.getters.actionLoading;
       }
     },
     methods: {
-      // 取消按钮
-      close() {
-        // 隐藏方法
-        // this.$parent.$parent.closeDialog();
-        this.$dialog.closeAll();
-      },
       // 提交按钮
       submit() {
         addData(this.form).then(() => {
           this.$message.success('成功');
           // 执行操作后隐藏弹出框
-          this.close();
+          this.onSub();
         }).catch(error => {
           console.log(error);
         });
-      }
-    },
-    watch: {
-      data: function (val) {
-        this.form = val;
       }
     }
   };
 </script>
 
 <style scoped>
+
 </style>

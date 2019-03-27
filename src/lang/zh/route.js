@@ -64,6 +64,7 @@ export default {
     dictionary: '字典管理',
     orgManage: '组织管理',
     roleManage: '权限管理',
-    map: '地图'
+    map: '地图',
+    dialogBox: '模态框'
   }
 };

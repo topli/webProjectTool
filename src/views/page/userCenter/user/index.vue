@@ -15,11 +15,11 @@
     </search-tem>
     <div class="list-el">
       <icon-btn icon="add" :content="$t('table.add')" @click="addData"></icon-btn>
-      <!--<icon-btn icon="excel" :content="$t('table.import')" @click="importFun"></icon-btn>-->
-      <!--<icon-btn icon="add" :content="$t('table.export')" @click="exportFun"></icon-btn>-->
+      <icon-btn icon="import" :content="$t('table.import')" @click="importFun"></icon-btn>
+      <icon-btn icon="export" :content="$t('table.export')" @click="exportFun"></icon-btn>
     </div>
     <div class="list-el">
-      <t-for-column selection index :data="list" :sort-change="sortChange" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-column>
+      <t-for-col selection index :data="list" :sort-change="sortChange" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-col>
       <el-pagination
         class="list-page"
         @size-change="handleSizeChange"
@@ -37,11 +37,12 @@
 <script>
   // import { fetchList } from './service';
   // import { iconTooltip } from '@/libs/utils/table';
-  import addOrUpdate from './addOrUpdate';
+  import add from './add';
   import list from '@/libs/mixins/list';
+  import dialog from '@/libs/mixins/dialog';
 
   export default {
-    mixins: [list],
+    mixins: [list, dialog],
     data() {
       return {
         columnsTitle: [
@@ -98,13 +99,13 @@
             align: 'center',
             render: (h, params) => {
               return h('div', this.iconBtn(h, params, [
-                { icon: 'edit', t: 'table.edit', handler: this.addOrUpdate }, // this.addOrUpdate 引用 list.js 方法 此方法为新增时显示窗口用
+                { icon: 'edit', t: 'table.edit', handler: this.addData }, // this.addOrUpdate 引用 list.js 方法 此方法为新增时显示窗口用
                 { icon: 'delete', t: 'table.delete', handler: this.deleteItem } // this.deleteItem 引用 list.js 方法 此方法为删除数据时提示窗口
               ]));
             }
           }
         ],
-        importType: 'user'
+        fileType: 'user'
       };
     },
     mounted() {
@@ -152,8 +153,7 @@
         }, 1000);
       },
       addData() {
-        this.$dialog(addOrUpdate, { title: '新增', data: { username: '111' }});
-        // this.$dialog(addOrUpdate, { title: '新增', data: { username: '111' }});
+        this.$dialogBox({ title: '新增', components: add, props: { id: 2 }});
       }
     }
   };

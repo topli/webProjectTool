@@ -53,7 +53,8 @@
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   .btn-is-focus {
-    border: 1px solid #b0b0b0 !important;
+    color: #409Eff !important;
+    border: 1px solid #409Eff !important;
   }
 
   .newIconBtn {
@@ -77,8 +78,8 @@
     padding: 0px 3px;
     font-size: 12px;
     border-radius: 4px;
-    -webkit-transition: color .2s linear, background-color .2s linear, border .2s linear, -webkit-box-shadow .2s linear;
-    transition: color .2s linear, background-color .2s linear, border .2s linear, box-shadow .2s linear, -webkit-box-shadow .2s linear;
+    -webkit-transition: color .2s linear,border .2s linear, background-color .2s linear, border .2s linear, -webkit-box-shadow .2s linear;
+    transition: color .2s linear,border .2s linear, background-color .2s linear, border .2s linear, box-shadow .2s linear, -webkit-box-shadow .2s linear;
     color: #495060;
   }
 </style>

@@ -134,19 +134,19 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/showDialog',
+    path: '/dialogBox',
     component: Layout,
     meta: {
-      title: 'showDialog',
+      title: 'dialogBox',
       icon: 'icon'
     },
     children: [
       {
-        path: 'showDialog',
-        component: () => import('@/views/page/showDialog/index'),
-        name: 'showDialog',
+        path: 'dialogBox',
+        component: () => import('@/views/page/dialogBox/index'),
+        name: 'dialogBox',
         meta: {
-          title: 'showDialog',
+          title: 'dialogBox',
           icon: 'icon'
         }
       }

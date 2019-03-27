@@ -5,7 +5,7 @@
       <svg-icon slot="suffix" icon-class="file-tree"></svg-icon>
     </el-input>
     <transition name="fade">
-      <div v-show="visible" style="position: absolute;overflow: hidden">
+      <div v-show="visible" style="position: absolute;overflow: hidden;z-index: 1">
         <el-scrollbar class="tree-data" ref="scrollbar">
           <el-input type="text" class="filter-tree-text" v-model="filterText" placeholder="过滤组织" clearable></el-input>
           <el-tree
@@ -229,20 +229,21 @@
     opacity: 0;
   }
   .org-tree {
-  .tree-data {
-    background-color: white;
-    overflow: hidden !important;
-    /*position: absolute;*/
-    width: 100%;
-    height: 200px;
-    margin-top: 6px;
-    border: 1px solid #dcdfe6;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    .filter-tree-text{
-      padding: 10px;
-    }
-   }
+    z-index: auto;
+    .tree-data {
+      background-color: white;
+      overflow: hidden !important;
+      /*position: absolute;*/
+      width: 100%;
+      height: 200px;
+      margin-top: 6px;
+      border: 1px solid #dcdfe6;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      .filter-tree-text{
+        padding: 10px;
+      }
+     }
   }
 </style>
 <style rel="stylesheet/scss" lang="scss">

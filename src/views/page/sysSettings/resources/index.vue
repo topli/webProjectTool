@@ -53,7 +53,7 @@
           <el-form-item :label="$t('resources.fromTitle.icon')" prop="icon" v-if="isShowIcon">
             <svg-icon v-if="form.icon" :icon-class="form.icon"
                       style="font-size: 28px;margin-top: 5px;"></svg-icon>
-            <el-button type="text" @click="showDialog = true" style="margin-left: 10px">{{$t('resources.fromTitle.selectIcon')}}</el-button>
+            <el-button type="text" @click="dialogBox = true" style="margin-left: 10px">{{$t('resources.fromTitle.selectIcon')}}</el-button>
           </el-form-item>
           <el-form-item>
             <el-button v-if="form.id" type="primary" @click="submitForm('form')">{{$t('resources.fromTitle.edit')}}</el-button>
@@ -65,7 +65,7 @@
     </div>
     <el-dialog :close-on-click-modal="false"
       :title="$t('resources.fromTitle.icon')"
-      :visible.sync="showDialog"
+      :visible.sync="dialogBox"
       width="60%"
       :before-close="handleClose">
       <div class="icons-container">
@@ -148,7 +148,7 @@
             }]
         }];
       return {
-        showDialog: false,
+        dialogBox: false,
         iconsMap: [],
         treeData: JSON.parse(JSON.stringify(data)),
         form: {
@@ -282,7 +282,7 @@
           ]);
       },
       handleClose() {
-        this.showDialog = false;
+        this.dialogBox = false;
       },
       getCurrentNode(node) {
         // if (node.type === 'org') {

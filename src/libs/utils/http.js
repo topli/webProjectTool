@@ -27,7 +27,8 @@ const http = (requestUrl, arg, config) => {
     method: method,
     params,
     data,
-    ...config
+    ...config,
+    validateStatus: null // 所有响应都resolve
   };
   return request(configs);
 };

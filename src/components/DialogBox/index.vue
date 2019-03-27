@@ -1,34 +1,39 @@
 <template>
   <el-dialog
-    ref="dialogs"
     :close-on-click-modal="false"
     :title="title"
     :visible.sync="visible"
     :width="width"
     center
-    @close="close">
-    <component :is="component" v-if="visible" ref="component" :data="componentData"></component>
+    @close="onClose">
+      <div id="dialog-box"></div>
   </el-dialog>
 </template>
 
 <script>
+  import Vue from 'vue';
   export default {
     data() {
       return {
-        width: '50%',
         visible: true,
-        componentData: {}
+        title: '',
+        width: '50%'
       };
     },
-    created() {
-      console.log(1);
+    created() {},
+    mounted() {
+      this.$nextTick(() => {
+        if (!this.components) {
+          console.error('components are not in parameters');
+          return;
+        }
+        // 挂载内容
+        const Components = Vue.extend(this.components);
+        const vm = new Components({ propsData: this.props, data: {  onSub: this.onSub, onClose: this.onClose }, store: this.$store, router: this.$router });
+        vm.$mount('#dialog-box');
+      });
     },
-    methods: {
-      close() {
-        this.visible = false;
-        this.onClose();
-      }
-    },
+    methods: {},
     beforeDestroy() {
       console.log('beforeDestroy');
     }

@@ -28,28 +28,32 @@ service.interceptors.response.use(
   response => {
     // set loading
     store.dispatch('setAL', false);
-    const res = response.data;
-    if (res) {
-      if (res.code !== 200) {
-        Message({
-          message: res.message,
-          type: 'error',
-          duration: 5 * 1000
-        });
+    let message = '';
+    if (response) {
+      if (response.status === 200) return response.data;
+      switch (response.status) {
+        case 401: {
+          message = '无权限访问。';
+          // todo 退出登录
+          store.dispatch('FedLogOut');
+          break;
+        }
+        default: {
+          message = response.data.message;
+          break;
+        }
       }
+      Message({
+        message: message,
+        type: 'error',
+        duration: 5 * 1000
+      });
+      return response.data;
     }
-    return res;
   },
   error => {
     // set loading
     store.dispatch('setAL', false);
-    console.log(error); // for debug
-    // 根据后台权限码提示信息
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    });
     return Promise.reject(error);
   });
 

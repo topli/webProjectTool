@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button type="ghost" @click="showDialog">showDialog</el-button>
+    <el-button type="ghost" @click="dialogBox">dialogBox</el-button>
     <el-button type="ghost" @click="showAdd">showAdd</el-button>
   </div>
 </template>
@@ -11,15 +11,15 @@
   export default {
     data () {
       return {
-        importType: 'showDialog'
+        importType: 'dialogBox'
       };
     },
     methods: {
-      showDialog() {
-        this.$dialog(test, { title: '导出' });
+      dialogBox() {
+        this.$dialogBox({ title: '导出', components: test, props: { id: 2 }, onSub: (el) => { console.log(el); } });
       },
       showAdd() {
-        this.$dialog(addOrUpdate, { title: '编辑', data: { id: 1 }});
+        this.$dialogBox({ title: '新增', components: addOrUpdate, props: { id: 2 }});
       }
     }
   };

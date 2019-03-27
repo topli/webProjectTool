@@ -62,14 +62,16 @@ const user = {
     getUserInfo({ commit }) {
       return new Promise((resolve, reject) => {
         getUserInfo().then(info => {
-          if (info.code !== 200) {
+          if (info.code && info.code !== 200) {
             reject('error');
           }
-          const menuList = ['userManage', 'dictionary', 'orgManage', 'resources', 'showDialog'];
+          const menuList = ['userManage', 'dictionary', 'orgManage', 'resources', 'dialogBox'];
           // 菜单、按钮权限数据存入localStore
           commit('SET_MENU_LIST', menuList);
           setStorage('menuList', menuList);
           resolve({ roles: menuList });
+        }).catch(error => {
+          console.log(error);
         });
       });
     },

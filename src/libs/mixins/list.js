@@ -6,11 +6,9 @@ import loading from './loading';
 import { iconBtn } from '@/libs/utils/table';
 import 'static/styles/list.scss'; // 列表样式
 import 'static/styles/aou.scss'; // 新增弹窗样式
-import importTemplate from '@/components/Import/index';
 
 export default {
   mixins: [loading],
-  components: { importTemplate },
   data() {
     return {
       list: [],
