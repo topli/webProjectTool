@@ -1,6 +1,6 @@
 <template>
   <div class="list-template">
-    <search-tem @on-search="onSearch">
+    <search-tem class="list-search" @on-search="onSearch">
       <el-form :inline="true" :model="searchFrom">
         <el-form-item>
           <el-input v-model="searchFrom.user" placeholder="审批人" clearable></el-input>
@@ -11,6 +11,30 @@
             <el-option label="区域二" value="beijing"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item>
+          <org-tree v-model="searchFrom.org" placeholder="选择组织"></org-tree>
+        </el-form-item>
+        <el-form-item>
+          <org-tree v-model="searchFrom.org" placeholder="选择组织"></org-tree>
+        </el-form-item>
+        <el-form-item>
+          <org-tree v-model="searchFrom.org" placeholder="选择组织"></org-tree>
+        </el-form-item>
+        <el-form-item>
+          <org-tree v-model="searchFrom.org" placeholder="选择组织"></org-tree>
+        </el-form-item>
+        <el-form-item>
+          <org-tree v-model="searchFrom.org" placeholder="选择组织"></org-tree>
+        </el-form-item>
+        <el-form-item>
+          <org-tree v-model="searchFrom.org" placeholder="选择组织"></org-tree>
+        </el-form-item>
+        <el-form-item>
+          <org-tree v-model="searchFrom.org" placeholder="选择组织"></org-tree>
+        </el-form-item>
+        <el-form-item>
+          <org-tree v-model="searchFrom.org" placeholder="选择组织"></org-tree>
+        </el-form-item>
       </el-form>
     </search-tem>
     <div class="list-el">
@@ -18,18 +42,20 @@
       <icon-btn icon="import" :content="$t('table.import')" @click="importFun"></icon-btn>
       <icon-btn icon="export" :content="$t('table.export')" @click="exportFun"></icon-btn>
     </div>
-    <div class="list-el">
-      <t-for-col selection index :data="list" :sort-change="sortChange" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-col>
-      <el-pagination
-        class="list-page"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="searchData.pageNo"
-        :page-sizes="pageSizeOpts"
-        :page-size="searchData.pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="totalElement">
-      </el-pagination>
+    <div class="list-el list-autoHeight">
+      <div class="list-table">
+        <t-for-col selection index :data="list" :sort-change="sortChange" :columnsTitle="columnsTitle" @select-change="handleSelectionChange"></t-for-col>
+        <el-pagination
+          class="list-page"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="searchData.pageNo"
+          :page-sizes="pageSizeOpts"
+          :page-size="searchData.pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="totalElement">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>

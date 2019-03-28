@@ -1,9 +1,28 @@
 // 列表模板样式
 .list-template {
-  margin: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.list-search {
+  flex-grow: 0;
 }
 .list-el {
+  flex-grow: 0;
   margin-bottom: 10px
+}
+.list-autoHeight {
+  position: relative;
+  flex-grow: 1;
+}
+.list-table {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 .list-page {
   margin-top: 10px;

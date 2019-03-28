@@ -6,7 +6,7 @@
       border
       @selection-change="handleSelectionChange"
       style="width: 100%"
-      :height="height"
+      :height="'calc(100% - 40px)'"
       @sort-change="sortChange">
       <el-table-column
         v-if="selection"
@@ -52,7 +52,6 @@
     components: { renderColumn },
     data () {
       return {
-        // visible: false,
         tableHeight: 0
       };
     },
@@ -63,26 +62,13 @@
       columnsTitle: { type: Array, required: true },
       sortChange: { type: Function, default: function () {} }
     },
-    created() {
-      setTimeout(() => {
-        // this.visible = true;
-        this.$nextTick(() => {
-          this.getTableHeight();
-        });
-      }, 200);
-      window.addEventListener('resize', () => {
-        this.getTableHeight();
-      });
-    },
+    created() {},
     mounted() {
     },
     computed: {
       loading() {
         return !this.data.length;
       },
-      // showTable() {
-      //   return this.data.length > 0 || this.visible;
-      // },
       height() {
         if (this.tableHeight < 220) {
           return 220;
@@ -91,9 +77,6 @@
       }
     },
     methods: {
-      getTableHeight() {
-        this.tableHeight = document.body.clientHeight - this.$el.offsetTop - 120; // 120 (表头 + 分页 高度)
-      },
       label(col) {
         return col.title + (col.unit ? '(' + col.unit + ')' : '');
       },

@@ -1,11 +1,11 @@
 <template>
   <!-- org-tree -->
-  <div class="org-tree" style="position: relative" v-clickoutside="handleClickOutside">
-    <el-input slot="reference" type="text" @focus="togglePopover" readonly v-model="checkedStr">
+  <div class="org-tree" id="org-tree" style="position: relative" v-clickoutside="handleClickOutside">
+    <el-input slot="reference" type="text" @focus="togglePopover" :placeholder="placeholder" readonly v-model="checkedStr">
       <svg-icon slot="suffix" icon-class="file-tree"></svg-icon>
     </el-input>
-    <transition name="fade">
-      <div v-show="visible" style="position: absolute;overflow: hidden;z-index: 1">
+    <transition name="el-zoom-in-top"> <!-- el-zoom-in-top by element-ui transiton.scss-->
+      <div v-show="visible" style="position: fixed;z-index: 99999;" :style="{width: this.clientWidth}">
         <el-scrollbar class="tree-data" ref="scrollbar">
           <el-input type="text" class="filter-tree-text" v-model="filterText" placeholder="过滤组织" clearable></el-input>
           <el-tree
@@ -27,6 +27,7 @@
 
 <script>
   import Clickoutside from 'element-ui/src/utils/clickoutside';
+  import { valueEquals } from 'element-ui/src/utils/util';
 
   export default {
     directives: { Clickoutside },
@@ -154,13 +155,18 @@
           label: 'label'
         },
         checkedKeys: [],
-        checkedStr: ''
+        checkedStr: '',
+        clientWidth: '200px'
       };
     },
-    props: {},
+    props: {
+      placeholder: String,
+      value: Array
+    },
     created() {
     },
     mounted() {
+      this.clientWidth = document.getElementById('org-tree').clientWidth + 'px';
     },
     computed: {},
     methods: {
@@ -180,12 +186,12 @@
         this.visible = false;
         this.checkedKeys = this.$refs.tree.getCheckedKeys();
         const inputStr = [];
-        const inputvalue = [];
+        const inputValue = [];
         this.$refs.tree.getCheckedNodes().forEach((item) => {
           inputStr.push(item.label);
-          inputvalue.push(item.id);
+          inputValue.push(item.id);
         });
-        this.$emit('input', inputvalue);
+        this.$emit('input', inputValue);
         this.checkedStr = inputStr.toString();
       },
       filterTree(value, data) {
@@ -201,6 +207,24 @@
         if (!val) return;
         this.filterText = '';
         this.setElScrollTop();
+      },
+      value (val, old) {
+        // 判断是否改变
+        if (valueEquals(val, old)) {
+          return;
+        }
+        this.checkedKeys = val;
+        this.$refs.tree.setCheckedNodes(val);
+        this.$forceUpdate();
+        this.$nextTick(() => {
+          const inputStr = [];
+          const inputValue = [];
+          this.$refs.tree.getCheckedNodes().forEach((item) => {
+            inputStr.push(item.label);
+            inputValue.push(item.id);
+          });
+          this.checkedStr = inputStr.toString();
+        });
       }
     }
   };

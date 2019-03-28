@@ -6,10 +6,11 @@
     </div>
     <div class="search-btn" :style="btnStyle">
       <slot name="btn">
-        <div class="btn">
+        <div class="btn-box">
           <el-button v-if="showMore" type="text" @click="openSearchFun" :icon="toggleFromIcon">{{text}}</el-button>
-          <el-button type="primary" @click="onSearch" circle>
+          <el-button class="sub-btn" type="primary" @click="onSearch" round>
             <svg-icon icon-class="search"></svg-icon>
+            <span>搜索</span>
           </el-button>
         </div>
       </slot>
@@ -35,9 +36,7 @@
     },
     mounted() {
       this.getFormHeight();
-      window.addEventListener('resize', () => {
-        this.getFormHeight();
-      });
+      window.addEventListener('resize', this.getFormHeight);
     },
     computed: {
       showMore() {
@@ -73,10 +72,17 @@
       },
       openSearchFun() {
         this.toggleOpen = !this.toggleOpen;
+        this.$nextTick(() => {
+          var myEvent = new Event('resize');
+          window.dispatchEvent(myEvent);
+        });
       },
       onSearch() {
         this.$emit('on-search');
       }
+    },
+    beforeDestroy () {
+      window.removeEventListener('resize', this.getFormHeight);
     }
   };
 </script>
@@ -101,9 +107,25 @@
     position: absolute;
     top: 0;
     right: 10px;
-    .btn {
+    .btn-box {
       text-align: right;
     }
-
+    .sub-btn {
+      span {
+        transition: width 0.3s ease, opacity 0.6s cubic-bezier(0.42, 0, 0, 1);
+        -moz-transition: width 0.3s ease, opacity 0.6s cubic-bezier(0.42, 0, 0, 1); /* Firefox 4 */
+        -webkit-transition: width 0.3s ease, opacity 0.6s cubic-bezier(0.42, 0, 0, 1); /* Safari 和 Chrome */
+        -o-transition: width 0.3s ease, opacity 0.6s cubic-bezier(0.42, 0, 0, 1); /* Opera */
+        display: inline-block;
+        width: 0px;
+        opacity: 0;
+      }
+    }
+    .sub-btn:hover {
+      span {
+        width: 27px;
+        opacity: 1;
+      }
+    }
   }
 </style>
