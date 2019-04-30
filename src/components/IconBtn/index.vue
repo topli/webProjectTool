@@ -1,11 +1,15 @@
 <template>
   <!-- IconBtn -->
-  <el-tooltip placement="bottom" :content="content" :open-delay="500">
-    <div @click="clickBtn($event)" :class="classs" class="newIconBtn" @mouseenter="mouseEnter" @mouseleave="mouseLeave"
-         :style="styles" v-btn-auth="authCode">
-      <svg-icon :icon-class="icon"></svg-icon>
+  <transition name="">
+    <div v-btn-auth="authCode" style="display: inline-block">
+      <el-tooltip placement="bottom" :content="content" :open-delay="500">
+        <div @click="clickBtn($event)" :class="classs" class="newIconBtn" @mouseenter="mouseEnter" @mouseleave="mouseLeave"
+             :style="styles">
+          <svg-icon :icon-class="icon"></svg-icon>
+        </div>
+      </el-tooltip>
     </div>
-  </el-tooltip>
+  </transition>
 </template>
 
 <script>

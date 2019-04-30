@@ -55,7 +55,13 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader?cacheDirectory',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        include: [
+          resolve('src'), 
+          resolve('test'), 
+          resolve('node_modules/webpack-dev-server/client'),
+          // 代码es6 => es5 作用于elementUI框架上  解决IE 语法错误问题
+          resolve('node_modules/element-ui')
+        ]
       },
       {
         test: /\.svg$/,

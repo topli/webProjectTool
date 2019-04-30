@@ -14,12 +14,10 @@ const install = Vue => {
       if (!authCode) return;
       if (btnRoles && btnRoles.length > 0) {
         if (btnRoles.indexOf(authCode)) {
-          el.style.display = 'none';
-          el.remove();
+          el.style.display = 'none'; // 在dom树中隐藏
         }
       } else {
-        el.style.display = 'none';
-        el.remove();
+        el.style.display = 'none'; // 在dom树中隐藏
       }
     }
   });

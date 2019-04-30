@@ -38,9 +38,9 @@
       </el-form>
     </search-tem>
     <div class="list-el">
-      <icon-btn icon="add" :content="$t('table.add')" @click="addData"></icon-btn>
-      <icon-btn icon="import" :content="$t('table.import')" @click="importFun"></icon-btn>
-      <icon-btn icon="export" :content="$t('table.export')" @click="exportFun"></icon-btn>
+      <icon-btn authCode="add" icon="add" :content="$t('table.add')" @click="addData"></icon-btn>
+      <icon-btn authCode="import" icon="import" :content="$t('table.import')" @click="importFun"></icon-btn>
+      <icon-btn authCode="export" icon="export" :content="$t('table.export')" @click="exportFun"></icon-btn>
     </div>
     <div class="list-el list-autoHeight">
       <div class="list-table">
@@ -150,22 +150,22 @@
         // });
         setTimeout(() => {
           this.list = [
-            { username: '1111111111111111111111111111111111133333333333333333333333332222222222222111', age: 23 },
-            { username: '222', age: 25 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '3333', age: 24 },
-            { username: '11111', age: 23 }
+            { username: '1111111111111111111111111111111111133333333333333333333333332222222222222111', age: 23, createTime: new Date() },
+            { username: '222', age: 25, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '3333', age: 24, createTime: new Date() },
+            { username: '11111', age: 23, createTime: new Date() }
           ];
           this.totalElement = 1;
         }, 2000);
